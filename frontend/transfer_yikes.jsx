@@ -11,8 +11,25 @@ window.signup = signup;
 // END TESTING
 
 document.addEventListener('DOMContentLoaded', () => {
-    const store = configureStore();
+    let preloadedState = {};
+
+    if (window.currentUser) {
+        preloadedState = {
+            entities: {
+                users: {
+                    [window.currentUser.id]: window.currentUser,
+                }
+            },
+            session: {
+                id: window.currentUser.id,
+            }
+        }
+    }
+
+    const store = configureStore(preloadedState);
     const root = document.getElementById('root');
+
+    delete window.currentUser
     
     // TESTING
     window.store = store;
