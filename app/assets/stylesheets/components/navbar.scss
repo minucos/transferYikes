@@ -1,0 +1,49 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 5%;
+    background: rgb(55,81,127);
+    color: rgb(255,255,255);
+
+    .navbar-signup, .welcome {
+        padding: 0px 20px;
+        color: rgb(255,255,255);
+    }
+
+    .navbar-signup:hover {
+        text-decoration: underline;
+    }
+
+    .button {
+        border: 1px solid rgb(67,185,251);
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 600;
+        height: 27px;
+        width: 80px;
+        text-align: center;
+        line-height: 27px;
+        color: rgb(255,255,255);
+    }
+
+    .button:hover {
+        background: rgb(67,185,251);
+    }
+}
+
+.logo {
+    font-size: 30px;
+    color: rgb(67,185,251);
+}
+
+.logo-text {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 20px;
+    color: rgb(255,255,255);
+}
+
+.leftbar, .rightbar {
+    display: flex;
+    align-items: center;
+}

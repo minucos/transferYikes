@@ -2,8 +2,11 @@ class Api::UsersController < ApplicationController
 
     def create
         @user = User.new(user_params)
-
+        
         if @user.save
+            wallet = Wallet.new(title: "my wallet")
+            wallet.user_id = @user.id
+            wallet.save
             login!(@user)
             render :show
         else

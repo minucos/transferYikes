@@ -8,22 +8,25 @@ class NavBar extends React.Component {
 
         let loggedOut = () => (
             <div className="rightbar">
-                <Link to="/signup">Sign up</Link> <Link to="/login">Log in</Link>
+                <Link className="navbar-signup" to="/signup">Register</Link> <Link className="button" to="/login">Log in</Link>
             </div>
         )
 
         let loggedIn = () => (
-            <div className="rightBar">
-                Welcome, {currentUser.fname}!
-                <button onClick={logout}>Log out</button>
+            <div className="rightbar">
+                <div className="welcome">Welcome, {currentUser.fname}!</div>
+                <a className="button" onClick={logout}>Log out</a>
             </div>
         )
 
         return (
             <div className="navbar">
-                <div className="leftbar">
-                    TransferYikes
-                </div>
+                <Link to="/">
+                    <div className="leftbar">
+                        <div className="logo">⚐</div>
+                        <div className="logo-text">TransferYikes</div>
+                    </div>
+                </Link>
                 { currentUser ? loggedIn() : loggedOut() }
             </div>
         )

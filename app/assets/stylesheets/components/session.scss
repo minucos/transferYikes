@@ -1,0 +1,112 @@
+.session-page {
+    display: flex;
+    justify-content: center;
+}
+
+.session-left {
+    width: 42%;
+    height: 100vh;
+    overflow: hidden;
+
+    img {
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.session-right {
+    width: 58%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    color: rgb(130,145,152);
+    
+    .btn-demo {
+        width: 60%;
+        height: 50px;
+        margin-top: 20px;
+        border-radius: 5px;
+        border-color: rgb(59,89,152);
+        font-size: 16px;
+        color: rgb(59,89,152);
+    }
+
+    .demo-link {
+        padding-top: 15px;
+    }
+    .session-link {
+        color: rgb(67,185,251);
+        text-decoration: underline;
+    }
+
+    .session-right-logo {
+        display: flex;
+        align-items: center;
+        padding-top: 100px;
+
+        .logo {
+            font-size: 38px;
+            color: rgb(67,185,251);
+        }
+    
+        .logo-text {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 25px;
+            color: rgb(35,47,73);
+        }
+    }
+
+    h2 {
+        padding-top: 50px;
+        text-align: center;
+        font-size: 28px;
+        color: rgb(46,67,105);
+    }
+
+    .session-text {
+        padding-top: 15px;
+        font-size: 16px;
+        color: rgb(130,145,152);
+
+        a {
+            font-size: 16px;
+            color: rgb(67,185,251);
+            text-decoration: underline;
+        }
+    }
+
+    a {
+        margin: 0;
+        padding: 0;
+    }
+
+    .session-form {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 20px;
+        
+        input {
+            width: 100%;
+            height: 50px;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            color: rgb(46,67,105);
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0;
+            border-color: rgb(67,185,251);
+        }
+
+        .btn-submit {
+            background: rgb(67,185,251);
+            color: rgb(255,255,255);
+        }
+    }
+}

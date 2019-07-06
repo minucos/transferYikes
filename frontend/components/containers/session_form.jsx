@@ -12,6 +12,8 @@ class SessionForm extends React.Component {
             password: "",
         };
 
+        this.images = [window.alamedaCove, window.yosemiteRiver, window.sunset, window.goldenFog, window.transamerica];
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.loginDemo = this.loginDemo.bind(this);
     };
@@ -31,18 +33,18 @@ class SessionForm extends React.Component {
     };
 
     loginDemo() {
-        this.props.processDemo({email: "test@email.com", password: "password"});
+        this.props.processDemo({email: "toby@email.com", password: "password"});
     }
 
     render() {
         const demoLink = () => (
-            <div className="demo_link">
+            <div className="demo-link">
                 or login with our <a className="session-link" onClick={this.loginDemo}>Demo User</a>
             </div>
         )
 
         const demoButton = () => (
-            <button className="demo-btn" onClick={this.loginDemo}>
+            <button className="btn-demo" onClick={this.loginDemo}>
                 Sign in with Demo User
             </button>
         )
@@ -62,29 +64,38 @@ class SessionForm extends React.Component {
         }
         
         return (
-            <div className="session-form">
-                <h2 className="session-heading">
-                    {heading}
-                </h2>
-                <div className="session-text">
-                    {message} <Link className="session-link" to={linkUrl}>{linkText}</Link>
+            <div className="session-page">
+                <div className="session-left">
+                    <img src={this.images[Math.floor(Math.random() * 5)]} alt="photo"/>
                 </div>
-                <form className="session-form" onSubmit={this.handleSubmit}>
-                    <input
-                        type="text"
-                        value={this.state.email}
-                        placeholder="Your email address"
-                        onChange={this.update("email")}
-                    />
-                    <input
-                        type="password"
-                        value={this.state.password}
-                        placeholder="Your password"
-                        onChange={this.update("password")}
-                    />
-                    <input id="submit-btn" type="submit" value={buttonText} />
-                </form>
-                {this.props.formType === "login" ? demoButton() : demoLink() }
+                <div className="session-right">
+                    <div className="session-right-logo">
+                        <div className="logo">⚐</div>
+                        <div className="logo-text">TransferYikes</div>
+                    </div>
+                    <h2 className="session-heading">
+                        {heading}
+                    </h2>
+                    <div className="session-text">
+                        {message} <Link className="session-link" to={linkUrl}>{linkText}</Link>
+                    </div>
+                    <form className="session-form" onSubmit={this.handleSubmit}>
+                        <input
+                            type="text"
+                            value={this.state.email}
+                            placeholder="Your email address"
+                            onChange={this.update("email")}
+                        />
+                        <input
+                            type="password"
+                            value={this.state.password}
+                            placeholder="Your password"
+                            onChange={this.update("password")}
+                        />
+                        <input className="btn-submit" type="submit" value={buttonText} />
+                    </form>
+                    {this.props.formType === "login" ? demoButton() : demoLink() }
+                </div>
             </div>
         )
     }

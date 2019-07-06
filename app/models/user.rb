@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
     attr_reader :password
 
+    has_one :wallet
+
     def password=(password)
         @password = password
 

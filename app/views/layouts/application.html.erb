@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html>
+<script type="text/javascript">
+  window.transferYikesFavicon = "<%= image_url('transferYikes.ico') %>"
+  window.alamedaCove = "<%= image_url('alameda-cove.jpg') %>"
+  window.yosemiteRiver = "<%= image_url('yosemite-river.jpg') %>"
+  window.transamerica = "<%= image_url('transamerica.jpg') %>"
+  window.goldenFog = "<%= image_url('golden-fog.jpg') %>"
+  window.sunset = "<%= image_url('alameda-sunset.jpg') %>"
+</script>
   <head>
     <title>TransferYikes</title>
+    <link rel = "icon" type = "image/png" href = "<%= image_url('transferYikes.ico') %>">
+    <!-- For apple devices -->
+    <link rel = "apple-touch-icon" type = "image/png" href = "<%= image_url('transferYikes.ico') %>"/>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <link href="https://fonts.googleapis.com/css?family=Exo+2|Russo+One|Ubuntu&display=swap" rel="stylesheet">
   </head>
 
   <body>
