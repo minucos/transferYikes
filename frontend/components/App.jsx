@@ -4,13 +4,15 @@ import { AuthRoute, ProtectedRoute } from '../utils/route_utils';
 import NavBarContainer from '../components/containers/navbar_container';
 import SignUpContainer from '../components/containers/signup_form_container';
 import LoginContainer from '../components/containers/login_form_container';
+import DashboardContainer from '../components/containers/dashboard_container';
 
 const App = () => (
     <div>
-        <NavBarContainer />
         <Switch>
-            <AuthRoute exact path="/signup" component={SignUpContainer}/>
-            <AuthRoute exact path="/login" component={LoginContainer}/>
+            <ProtectedRoute path='/user/wallet' component={DashboardContainer} />
+            <AuthRoute path="/signup" component={SignUpContainer}/>
+            <AuthRoute path="/login" component={LoginContainer}/>
+            <AuthRoute path="/" component={NavBarContainer} />
             <Redirect to="/"/>
         </Switch>
     </div>
