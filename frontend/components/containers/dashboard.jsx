@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Dashboard extends React.Component {
     componentDidMount() {
@@ -11,9 +12,24 @@ class Dashboard extends React.Component {
         if (!user || !wallet) return null;
 
         return (
-            <div>
-                <h1>{user.fname}</h1>
-                <button onClick={logout}>LOG OUT</button>
+            <div className="dashboard">
+                <div className="nav-menu">
+                    <Link to="/">
+                        <div className="dash-logo">
+                            <div className="logo">⚐</div>
+                            <div className="logo-text">TransferYikes</div>
+                        </div>
+                    </Link>
+                    <ul>
+                        <li>Activity</li>
+                        <li>Wallets</li>
+                        <li>Recipients</li>
+                    </ul>
+                </div>
+                <div className="navbar">
+                    <div className="heading">Activity</div>
+                    <a className="button" onClick={logout}>Log out</a>
+                </div>
             </div>
         )
     }
