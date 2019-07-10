@@ -19,6 +19,14 @@ class Dashboard extends React.Component {
                     <div className="heading">{heading}</div>
                     <a className="button" onClick={logout}>Log out</a>
                 </div>
+                {switch (key) {
+                    case value:
+                        
+                        break;
+                
+                    default:
+                        break;
+                }}
             </div>
         )
     }

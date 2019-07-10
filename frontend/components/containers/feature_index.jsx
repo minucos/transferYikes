@@ -20,7 +20,7 @@ class FeatureIndex extends React.Component {
                     Activity
                 </li>
                 <li className="nav-item" onClick={showWallet}>
-                    Currencies
+                    Wallet
                 </li>
                 <li className="nav-item" onClick={showRecipients}>
                     Recipients

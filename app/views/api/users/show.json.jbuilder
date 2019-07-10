@@ -9,3 +9,11 @@ json.wallet do
         json.partial! "api/wallets/wallet", wallet: @user.wallet
     end
 end
+
+json.currencies do
+    @user.currencies.each do |currency|
+        json.set! currency.id do
+            json.partial! "api/currencies/currency", currency: currency 
+        end
+    end
+end

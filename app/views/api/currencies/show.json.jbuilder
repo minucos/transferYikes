@@ -1,0 +1,1 @@
+json.partial! "api/currencies/currency", currency: @currency
