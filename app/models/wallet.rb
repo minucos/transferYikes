@@ -16,4 +16,13 @@ class Wallet < ApplicationRecord
     belongs_to :user
 
     has_many :currencies
+
+    def currency_balance(currency_type)
+        self.currencies.each do |currency|
+            return currency.balance if currency.currency_type == currency_type
+        end
+
+        return 0
+    end
+
 end
