@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 ActiveRecord::Base.transaction do
+    Currency.destroy_all
     Wallet.destroy_all
     User.destroy_all
 
@@ -15,4 +16,10 @@ ActiveRecord::Base.transaction do
 
     #wallets
     toby_wallet = Wallet.create!(title: "My wallet", user_id: toby.id)
+
+    #currencies
+    toby_AUD = Currency.create!(currency_type: "AUD", balance: 900, wallet_id: toby_wallet.id)
+    toby_USD = Currency.create!(currency_type: "USD", balance: 1457.23, wallet_id: toby_wallet.id)
+    toby_GBP = Currency.create!(currency_type: "GBP", balance: 552.76, wallet_id: toby_wallet.id)
+
 end

@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
         userId: userId,
         user: state.entities.users[userId],
         wallet: Object.values(state.entities.wallets)[0],
+        heading: state.ui.display
     })
 }
 

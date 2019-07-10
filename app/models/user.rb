@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  email           :string           not null
+#  fname           :string           not null
+#  lname           :string           not null
+#  password_digest :string           not null
+#  session_token   :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class User < ApplicationRecord
     validates :email, :session_token, :password_digest, presence: true
     validates :email, :session_token, uniqueness: true
@@ -8,6 +22,10 @@ class User < ApplicationRecord
     attr_reader :password
 
     has_one :wallet
+
+    has_many :currencies,
+    through: :wallet,
+    source: :currencies
 
     def password=(password)
         @password = password

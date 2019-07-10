@@ -6,5 +6,6 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :users, only: [:create, :show, :index]
     resources :wallets, only: [:show, :update]
+    resources :currencies, only: [:create, :show, :update, :destroy]
   end
 end

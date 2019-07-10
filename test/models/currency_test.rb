@@ -1,17 +1,19 @@
 # == Schema Information
 #
-# Table name: wallets
+# Table name: currencies
 #
 #  id         :bigint           not null, primary key
-#  title      :string           not null
-#  user_id    :integer          not null
+#  type       :string           not null
+#  balance    :float            not null
+#  ord        :integer          not null
+#  wallet_id  :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 require 'test_helper'
 
-class WalletTest < ActiveSupport::TestCase
+class CurrencyTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

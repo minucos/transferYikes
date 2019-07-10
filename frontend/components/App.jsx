@@ -5,6 +5,9 @@ import NavBarContainer from '../components/containers/navbar_container';
 import SignUpContainer from '../components/containers/signup_form_container';
 import LoginContainer from '../components/containers/login_form_container';
 import DashboardContainer from '../components/containers/dashboard_container';
+import { receiveUIDisplay } from '../actions/ui_actions';
+
+window.receiveUIDisplay = receiveUIDisplay;
 
 const App = () => (
     <div>
