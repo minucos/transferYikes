@@ -4,8 +4,12 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resource :session, only: [:create, :destroy]
-    resources :users, only: [:create, :show, :index]
+    resources :users, only: [:create, :show, :index] do 
+      member do 
+        post 'receive'
+      end
+    end
     resources :wallets, only: [:show, :update]
-    resources :currencies, only: [:create, :show, :update, :destroy]
+    resources :currencies, only: [:create, :show, :index, :update, :destroy]
   end
 end

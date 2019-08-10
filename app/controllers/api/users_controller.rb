@@ -20,9 +20,21 @@ class Api::UsersController < ApplicationController
         render :show
     end
 
+    def receive
+        @user = User.find(params[:id])
+
+        @user.receive_money(params[:amount].to_f, params[:currencyType])
+
+        render :show
+    end
+
     private
     def user_params
         params.require(:user).permit(:email, :fname, :lname, :password)
+    end
+
+    def currency_params
+        
     end
     
 end

@@ -1,0 +1,61 @@
+.wallet-bar-container {
+
+    .add-cash {
+        display: flex;
+        padding: 10px 50px;
+        width: 100%;     
+        border-bottom: 1px solid rgb(226,230,232);
+        font-size: 15px;
+
+        .add-cash-form {
+            display: flex;
+            justify-content: space-between;
+
+            .add-cash-dropdown {
+                margin-right: 30px;
+                height: 36px;
+                font-size: 15px;
+            }
+
+            input {
+                width: 100px;
+                color: rgb(255,255,255);
+                background: rgb(99,209,112);
+                border-color: rgb(99,209,112);
+                border-radius: 5px;
+                font-size: 15px;
+            }
+
+            input:hover {
+                background: rgb(61, 173, 74);
+                border-color: rgb(61, 173, 74);
+            }
+        }
+
+        .add-cash-quote {
+            padding-left: 50px;
+            color: rgb(100,100,100);
+            line-height: 36px;
+        }
+    }
+}
+
+.currencies-index {
+    margin-left: 50px;
+    margin-top: 50px;
+    width: calc(100% - 50px);
+
+    .currencies-table {
+        font-size: 20px;
+        width: 80%;
+
+        tr {
+            height: 30px;
+
+            th, td {
+                border: 1px solid rgb(150,150,150);
+                text-align: center;
+            }
+        }
+    }
+}

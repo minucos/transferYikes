@@ -8,7 +8,7 @@
 
 ActiveRecord::Base.transaction do
     Currency.destroy_all
-    Wallet.destroy_all
+    Wallet.destroy_all 
     User.destroy_all
 
     #demo user

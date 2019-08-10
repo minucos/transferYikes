@@ -11,7 +11,13 @@ class Api::CurrenciesController < ApplicationController
     end
 
     def show
-        @currency = current_user.currencies.find(id: params[:id])
+        @currency = current_user.currencies.find(params[:id])
+    end
+
+    def index
+        @currencies = current_user.currencies
+
+        render :index
     end
 
     def update
