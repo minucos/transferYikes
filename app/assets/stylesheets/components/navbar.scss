@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 50px;
     padding: 5px 5%;
     background: rgb(55,81,127);
     color: rgb(255,255,255);
@@ -9,6 +10,8 @@
     .navbar-signup, .welcome {
         padding: 0px 20px;
         color: rgb(255,255,255);
+        font-size: 14px;
+        font-weight: 500;
     }
 
     .navbar-signup:hover {
@@ -17,18 +20,19 @@
 
     .button {
         border: 1px solid rgb(67,185,251);
-        border-radius: 5px;
+        border-radius: 3px;
         font-size: 14px;
         font-weight: 600;
-        height: 27px;
-        width: 80px;
+        height: 30px;
+        width: 68px;
         text-align: center;
-        line-height: 27px;
-        color: rgb(255,255,255);
+        line-height: 30px;
+        color: rgb(67,185,251);
     }
 
     .button:hover {
         background: rgb(67,185,251);
+        color: rgb(255,255,255);
     }
 }
 

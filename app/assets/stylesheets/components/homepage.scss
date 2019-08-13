@@ -1,0 +1,36 @@
+.home-page {
+    height: 100vh;
+    background: rgb(55,81,127);
+}
+
+.home-main {
+    display: flex;
+    padding: 0px 5%;
+    color: rgb(255,255,255);
+    
+    .main-left {
+        width: 60%;
+        margin-top: 60px;
+        font-family: 'Raleway', sans-serif;
+
+        .main-heading {
+            width: 70%;
+            font-weight: 600;
+            span {
+                font-size: 40px;
+                line-height: 60px;
+            }
+    
+            span:last-child {
+                color: rgb(68,186,251);
+            }
+        }
+    
+        .main-subheading {
+            padding-top: 40px;
+            width: 70%;
+            font-weight: 300;
+            line-height: 30px;
+        }
+    }
+}
