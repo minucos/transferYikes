@@ -96,10 +96,11 @@ class ConversionCalculator extends React.Component {
             <div className="calculator">
                 <div className="label">You send</div>
                 <div className="from-div">
+                    <label className="input-symbol">{this.symbols[fromCurrency]}</label>
                     <input 
                         className="from-amount" 
                         type="float" 
-                        value={fromAmount}
+                        value={fromAmount.toFixed(2)}
                         onChange={this.updateAmount("fromAmount")}
                     />
                     <select 
@@ -121,15 +122,16 @@ class ConversionCalculator extends React.Component {
                     <ul>
                         <li><span>◉</span>calculation</li>
                         <li><span>◉</span>{this.symbols[fromCurrency]}{fees} {fromCurrency} Total Fees</li>
-                        <li><span>◉</span>{rates[toCurrency]} <span id="rate-symbol">✓</span> your exchange rate</li>
+                        <li><span>◉</span>{rates[toCurrency].toFixed(5)} <span id="rate-symbol">✓</span> your exchange rate</li>
                     </ul>
                 </div>
                 <div className="label">Recipient gets</div>
                 <div className="to-div">
+                    <label className="input-symbol">{this.symbols[toCurrency]}</label>
                     <input 
                         className="to-amount" 
                         type="float" 
-                        value={isNaN(toAmount) ? 0 : toAmount}
+                        value={isNaN(toAmount) ? 0 : toAmount.toFixed(2)}
                         onChange={this.updateAmount("toAmount")}
                     />
                     <select 

@@ -5,6 +5,16 @@
     .from-div, .to-div {
         display: flex;
         width: 400px;
+
+        .input-symbol {
+            position: relative;
+            left: 5px;
+            bottom: -32px;
+            width: 0px;
+            font-size: 22px;
+            font-weight: 400;
+            color: rgb(46,67,105);
+        }
     }
 
     .label {
@@ -12,13 +22,13 @@
         position: relative;
         left: 12px;
         bottom: -12px;
-        color: black;
+        color: rgb(46,67,105);
         font-size: 14px;
     }
 
     input {
         width: calc(100% - 114px);
-        padding: 28px 12px 4px;
+        padding: 28px 25px 4px;
         font-size: 22px;
         line-height: 32px;
         color: rgb(46,67,105);
