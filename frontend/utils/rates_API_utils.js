@@ -1,6 +1,6 @@
-export const fetchRates = () => (
-    $.ajax({
+export const fetchRates = (base) => {
+    return $.ajax({
         method: "GET",
-        url: `http://data.fixer.io/api/latest?access_key=${window.currencyAPI}&format=1&symbols=USD,AUD,GBP,CNY,JPY,XBT,CAD`,
+        url: `https://api.exchangeratesapi.io/latest?base=${base}&symbols=USD,AUD,GBP,CNY,JPY,CAD,EUR`,
     })
-);
+};

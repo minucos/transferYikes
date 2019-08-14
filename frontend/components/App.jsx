@@ -6,11 +6,8 @@ import SignUpContainer from '../components/containers/signup_form_container';
 import LoginContainer from '../components/containers/login_form_container';
 import DashboardContainer from '../components/containers/dashboard_container';
 import { receiveUIDisplay } from '../actions/ui_actions';
-import * as RatesAPI from '../utils/rates_API_utils';
 
 window.receiveUIDisplay = receiveUIDisplay;
-
-window.RatesAPI = RatesAPI;
 
 const App = () => (
     <div>

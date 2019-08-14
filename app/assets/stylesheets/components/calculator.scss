@@ -28,27 +28,16 @@
         font-size: 22px;
         line-height: 32px;
         padding: 14px 10px;
-        // width: 100px;
         border: none;
         border-radius: 0;
         -webkit-appearance: none;
         background: rgb(46,67,105);
         color: rgb(255,255,255);
-
-        // option {
-        //     font-size: 22px;
-        //     line-height: 32px;
-        //     padding: 14px 10px;
-        //     border: none;
-        //     border-radius: 0;
-        //     -webkit-appearance: none;
-        //     background: rgb(46,67,105);
-        //     color: rgb(255,255,255);
-        // }
     }
 
 
     .rates-div {
+        margin-left: 15px;
         border-left: 2px solid rgb(37,54,85);
 
         ul {
@@ -64,6 +53,11 @@
                 padding-right: 8px;
                 color: rgb(37,54,85);
             }
+
+            #rate-symbol {
+                color: rgb(94,203,144);
+            }
         }
+
     }
 }
