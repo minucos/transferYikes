@@ -100,7 +100,7 @@ class ConversionCalculator extends React.Component {
                     <input 
                         className="from-amount" 
                         type="float" 
-                        value={fromAmount.toFixed(2)}
+                        value={Math.floor(fromAmount * 100) / 100}
                         onChange={this.updateAmount("fromAmount")}
                     />
                     <select 
@@ -115,7 +115,6 @@ class ConversionCalculator extends React.Component {
                         <option value="CAD">🇨🇦 CAD</option>
                         <option value="CNY">🇨🇳 CNY</option>
                         <option value="JPY">🇯🇵 JPY</option>
-                        <option value="XBT">🏴‍☠️ XBT</option>
                     </select>
                 </div>
                 <div className="rates-div">
@@ -131,7 +130,7 @@ class ConversionCalculator extends React.Component {
                     <input 
                         className="to-amount" 
                         type="float" 
-                        value={isNaN(toAmount) ? 0 : toAmount.toFixed(2)}
+                        value={Math.floor(toAmount * 100) / 100 }
                         onChange={this.updateAmount("toAmount")}
                     />
                     <select 
@@ -146,7 +145,6 @@ class ConversionCalculator extends React.Component {
                         <option value="CAD">🇨🇦 CAD</option>
                         <option value="CNY">🇨🇳 CNY</option>
                         <option value="JPY">🇯🇵 JPY</option>
-                        <option value="XBT">🏴‍☠️ XBT</option>
                     </select>
                 </div>
                 <div className="savings-div">

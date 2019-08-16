@@ -1,14 +1,10 @@
-import { RECEIVE_UI_DISPLAY } from '../actions/ui_actions';
+import { combineReducers } from 'redux';
+import DisplayUIReducer from './display_ui_reducer';
+import ModalReducer from './modal_reducer';
 
-const UIReducer = (oldState = { display: 'Activity'}, action) => {
-    Object.freeze(oldState);
-
-    switch (action.type) {
-        case RECEIVE_UI_DISPLAY:
-            return { display: action.view }
-        default:
-            return oldState;
-    }
-};
+const UIReducer = combineReducers({
+    display: DisplayUIReducer,
+    modal: ModalReducer
+})
 
 export default UIReducer;
