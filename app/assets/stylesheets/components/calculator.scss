@@ -50,10 +50,6 @@
         margin-left: 15px;
         border-left: 2px solid rgb(37,54,85);
 
-        ul {
-
-        }
-
         li {
             position: relative;
             left: -9px;
@@ -62,6 +58,16 @@
             span {
                 padding-right: 8px;
                 color: rgb(37,54,85);
+            }
+
+            #rate-amount {
+                font-weight: 600;
+                color: rgb(68,186,251);
+            }
+
+            #rate-amount:hover {
+                cursor: pointer;
+                text-decoration: underline;
             }
 
             #rate-symbol {

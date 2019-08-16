@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchRates } from "../../actions/rate_actions";
+import { openModal } from "../../actions/modal_actions";
 import { userRates } from "../../reducers/selectors";
 import ConversionCalculator from './conversion_calculator';
 
@@ -15,7 +16,8 @@ const mapSTP = (state) => {
 const mapDTP = (dispatch) => {
 
     return({
-        fetchRates: (base) => dispatch(fetchRates(base))
+        fetchRates: (base) => dispatch(fetchRates(base)),
+        openModal: () => dispatch(openModal()),
     })
 };
 
