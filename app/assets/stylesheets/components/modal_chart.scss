@@ -4,15 +4,21 @@
   bottom: 0;
   right: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 10;
 }
 
-.modal-child {
+.modal {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 400px;
-  width: 300px;
+  height: 70vh;
+  width: 80vw;
 }
+
+#chart-container {
+  background: white;
+
+}
+

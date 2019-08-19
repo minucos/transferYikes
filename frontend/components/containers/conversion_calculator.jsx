@@ -25,7 +25,8 @@ class ConversionCalculator extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchRates(this.state.fromCurrency)
+        this.props.fetchRates(this.state.fromCurrency);
+        this.props.fetchHistoricalData(this.state.fromCurrency, this.state.toCurrency);
     }
 
     updateAmount(field) {
@@ -60,11 +61,11 @@ class ConversionCalculator extends React.Component {
             return (e) => {
                 let { rates, toCurrency } = this.state;
                 let rate = rates[e.target.value];
-                console.log(e.target.value)
                 this.setState({
                     [field]: e.target.value,
                     toAmount: this.state.fromAmount * rate
-                })
+                });
+                this.props.fetchHistoricalData(this.state.fromCurrency, e.target.value);
             }    
         }
         return (e) => {
@@ -84,10 +85,11 @@ class ConversionCalculator extends React.Component {
                         fromCurrency: this.props.base,
                         rates: this.props.rates,
                         toAmount: (this.state.fromAmount * rate),
-                    })
+                    });
+                    this.props.fetchHistoricalData(this.state.fromCurrency, this.state.toCurrency);
                 }
             )
-        }
+        };
     }
 
     render() {
