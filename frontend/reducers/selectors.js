@@ -19,29 +19,48 @@ export const userRates = ({ rates, base }) => {
 export const chartData = (state) => {
     let labels = Object.keys(state.entities.rates.historical.rates).sort()
     let from = state.entities.rates.base;
-    let to = Object.keys(state.entities.rates.historical.rates[Object.keys(state.entities.rates.historical.rates)[0]])[0];
+    let to = toCurrency(state);
+
     let data = {
         labels: convertLabels(labels),
         datasets: [{
-            label: `${from}-${to} exchange rate`,
             color: 'rgb(1,186,252)',
             borderColor: 'rgb(1,186,252)',
             data: labels.map(el => Object.values(state.entities.rates.historical.rates[el])[0])
         }]
     };
-
+    
     return data;
 }   
 
 export const chartOptions = (data, state) => {
     let options = {
         type: 'line',
+        backgroundColor: 'rgb(255,255,255)',
         data: data,
         options: {
             responsive: true,
+            legend: {
+                display: false
+            },
             tooltips: {
                 mode: 'x-axis'
             },
+            scales: {
+                yAxes: [{
+                    gridLines: {
+                        display: true,
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: false,
+                    },
+                    ticks: { 
+                        display: false,
+                    }
+                }]
+            }
         }
     };
 
@@ -59,3 +78,12 @@ const convertLabels = (labels) => {
         return date[0] + " " + months[date[1]];
     })
 };
+
+export const toCurrency = (state) => {
+    return Object.keys(
+        state.entities.rates.historical.rates[Object.keys(
+            state.entities.rates.historical.rates
+            )[0]]
+        )[0]
+
+}

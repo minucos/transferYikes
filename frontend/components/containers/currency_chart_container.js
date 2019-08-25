@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { chartData, chartOptions } from '../../reducers/selectors';
+import { chartData, chartOptions, toCurrency } from '../../reducers/selectors';
 import CurrencyChart from './currency_chart';
 
 const mapSTP = (state) => {
@@ -8,6 +8,9 @@ const mapSTP = (state) => {
 
     return({
         options: options,
+        from: state.entities.rates.base,
+        to: toCurrency(state),
+        labels: options.data.labels,
     })
 }
 

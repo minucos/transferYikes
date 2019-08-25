@@ -17,8 +17,23 @@
   width: 80vw;
 }
 
-#chart-container {
+#modal-container {
+  padding: 15px;
+  border-radius: 5px;
   background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
+  h1 {
+    font-size: 30px;
+  }
+
+  #labels-container {
+    width: 100%;
+    padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
