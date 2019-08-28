@@ -11,15 +11,17 @@ ActiveRecord::Base.transaction do
     Wallet.destroy_all 
     User.destroy_all
 
-    #demo user
+    # demo user
     toby = User.create!(email:"toby@email.com", fname: "Toby", lname: "Dundridge", password: "password")
+    
+    # users
     andy = User.create!(email:"andy@email.com", fname: "Andy", lname: "Minucos", password: "password")
 
-    #wallets
+    # wallets
     toby_wallet = Wallet.create!(title: "My wallet", user_id: toby.id)
     andy_wallet = Wallet.create!(title: "My wallet", user_id: andy.id)
 
-    #currencies
+    # currencies
     # toby
     toby_AUD = Currency.create!(currency_type: "AUD", balance: 900, wallet_id: toby_wallet.id)
     toby_USD = Currency.create!(currency_type: "USD", balance: 1457.23, wallet_id: toby_wallet.id)

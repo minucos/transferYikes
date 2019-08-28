@@ -28,6 +28,17 @@ class Api::UsersController < ApplicationController
         render :show
     end
 
+    def transfer
+        @user = User.find(params[:id])
+        @receiving_user = User.find(params[:receiver_id])
+        amount = params[:amount].to_f
+        currency_type = params[:currencyType]
+
+        @user.send_money(amount, currency_type, @receiving_user)
+
+        render json: @user.errors.full_messages
+    end
+
     private
     def user_params
         params.require(:user).permit(:email, :fname, :lname, :password)

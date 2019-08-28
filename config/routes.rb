@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :show, :index] do 
       member do 
         post 'receive'
+        post 'transfer'
       end
     end
     resources :wallets, only: [:show, :update]

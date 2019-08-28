@@ -5,7 +5,7 @@ const DisplayUIReducer = (oldState = 'Wallet', action) => {
 
     switch (action.type) {
         case RECEIVE_UI_DISPLAY:
-            action.view
+            return action.view
         default:
             return oldState;
     }

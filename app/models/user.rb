@@ -70,9 +70,8 @@ class User < ApplicationRecord
 
         from_currency = self.currencies.find_by(currency_type: currency_type)
         from_currency.balance -= amount
-        from_currency.save!
-
         receiving_user.receive_money(amount, currency_type)
+        from_currency.save!
 
         return nil
     end
