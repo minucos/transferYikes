@@ -27,6 +27,14 @@ class User < ApplicationRecord
     through: :wallet,
     source: :currencies
 
+    has_many :sent_transactions,
+    foreign_key: :sender_id,
+    class_name: :Transaction
+
+    has_many :received_transactions,
+    foreign_key: :receiver_id,
+    class_name: :Transaction
+
     def password=(password)
         @password = password
 
@@ -89,6 +97,11 @@ class User < ApplicationRecord
             return to_currency.balance
         end
     end
+
+    def transactions
+        Transaction.where('sender_id = :id OR receiver_id = :id', id: self.id)
+    end
+
 
 end
 

@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 ActiveRecord::Base.transaction do
+    Transaction.destroy_all
     Currency.destroy_all
     Wallet.destroy_all 
     User.destroy_all
@@ -16,6 +17,9 @@ ActiveRecord::Base.transaction do
     
     # users
     andy = User.create!(email:"andy@email.com", fname: "Andy", lname: "Minucos", password: "password")
+
+    # used for deposits/withdrawals
+    bank = User.create!(email:"vault@transferyikes.com", fname: "Scrooge", lname: "McDuck", password: "no1dime")
 
     # wallets
     toby_wallet = Wallet.create!(title: "My wallet", user_id: toby.id)
@@ -29,5 +33,16 @@ ActiveRecord::Base.transaction do
     # andy
     andy_AUD = Currency.create!(currency_type: "AUD", balance: 2649.89, wallet_id: andy_wallet.id)
     andy_AUD = Currency.create!(currency_type: "USD", balance: 3705.28, wallet_id: andy_wallet.id)
+
+    # transactions
+    # andy deposits
+    deposit1 = Transaction.create!(name: "Deposit", amount: 1000, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: andy.id)
+    deposit2 = Transaction.create!(name: "Deposit", amount: 1200, from_currency: "AUD", to_currency: "AUD", sender_id: bank.id, receiver_id: andy.id)
+    deposit3 = Transaction.create!(name: "Deposit", amount: 800, from_currency: "GBP", to_currency: "GBP", sender_id: bank.id, receiver_id: andy.id)
+    # toby deposits
+    deposit4 = Transaction.create!(name: "Deposit", amount: 3400, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: toby.id)
+    deposit5 = Transaction.create!(name: "Deposit", amount: 5600, from_currency: "AUD", to_currency: "AUD", sender_id: bank.id, receiver_id: toby.id)
+    deposit6 = Transaction.create!(name: "Deposit", amount: 450, from_currency: "GBP", to_currency: "GBP", sender_id: bank.id, receiver_id: toby.id)
+    # andy to toby
 
 end

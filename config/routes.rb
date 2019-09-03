@@ -10,7 +10,9 @@ Rails.application.routes.draw do
         post 'transfer'
       end
     end
+
     resources :wallets, only: [:show, :update]
     resources :currencies, only: [:create, :show, :index, :update, :destroy]
+    resources :transactions, only: [:create, :index, :show]
   end
 end
