@@ -36,13 +36,13 @@ ActiveRecord::Base.transaction do
 
     # transactions
     # andy deposits
-    deposit1 = Transaction.create!(name: "Deposit", amount: 1000, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: andy.id)
-    deposit2 = Transaction.create!(name: "Deposit", amount: 1200, from_currency: "AUD", to_currency: "AUD", sender_id: bank.id, receiver_id: andy.id)
-    deposit3 = Transaction.create!(name: "Deposit", amount: 800, from_currency: "GBP", to_currency: "GBP", sender_id: bank.id, receiver_id: andy.id)
+    deposit1 = Transaction.create!(name: "Deposit", sent_amount: 1000, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: andy.id, exchange_rate: 1)
+    deposit2 = Transaction.create!(name: "Deposit", sent_amount: 1200, from_currency: "AUD", to_currency: "AUD", sender_id: bank.id, receiver_id: andy.id, exchange_rate: 1)
+    deposit3 = Transaction.create!(name: "Deposit", sent_amount: 800, from_currency: "GBP", to_currency: "GBP", sender_id: bank.id, receiver_id: andy.id, exchange_rate: 1)
     # toby deposits
-    deposit4 = Transaction.create!(name: "Deposit", amount: 3400, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: toby.id)
-    deposit5 = Transaction.create!(name: "Deposit", amount: 5600, from_currency: "AUD", to_currency: "AUD", sender_id: bank.id, receiver_id: toby.id)
-    deposit6 = Transaction.create!(name: "Deposit", amount: 450, from_currency: "GBP", to_currency: "GBP", sender_id: bank.id, receiver_id: toby.id)
+    deposit4 = Transaction.create!(name: "Deposit", sent_amount: 3400, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: toby.id, exchange_rate: 1)
+    deposit5 = Transaction.create!(name: "Deposit", sent_amount: 5600, from_currency: "AUD", to_currency: "AUD", sender_id: bank.id, receiver_id: toby.id, exchange_rate: 1)
+    deposit6 = Transaction.create!(name: "Deposit", sent_amount: 450, from_currency: "GBP", to_currency: "GBP", sender_id: bank.id, receiver_id: toby.id, exchange_rate: 1)
     # andy to toby
 
 end

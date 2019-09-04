@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
     return ({
         userId: userId,
         user: state.entities.users[userId],
-        wallet: Object.values(state.entities.wallets)[0],
+        balances: state.entities.balances,
         heading: state.ui.display
     })
 }

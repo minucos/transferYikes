@@ -70,7 +70,19 @@ class User < ApplicationRecord
     end
 
     def currency_balance(currency_type)
-        self.wallet.currency_balance(currency_type)
+        credits = Transaction
+                    .where(receiver_id: self.id)
+                    .where(to_currency: currency_type)
+                    .group(:to_currency)
+                    .pluck("SUM(received_amount) AS total_credits")[0] ||= 0
+
+        debits = Transaction
+                    .where(sender_id: self.id)
+                    .where(from_currency: currency_type)
+                    .group(:from_currency)
+                    .pluck("SUM(sent_amount) AS total_debits")[0] ||= 0
+
+        credits - debits
     end
 
     def send_money(amount, currency_type, receiving_user)
@@ -100,8 +112,19 @@ class User < ApplicationRecord
 
     def transactions
         Transaction.where('sender_id = :id OR receiver_id = :id', id: self.id)
+
+        # sent_transactions.concat(received_transactions)
     end
 
+    def balances
+        Transaction::CURRENCIES.map do |currency|
+            balance = {}
+
+            balance[currency] = currency_balance(currency)
+
+            balance
+        end
+    end
 
 end
 

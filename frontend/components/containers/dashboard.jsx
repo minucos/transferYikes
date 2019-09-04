@@ -12,7 +12,7 @@ class Dashboard extends React.Component {
     render() {
         let { user, wallet, logout, heading } = this.props; 
 
-        if (!user || !wallet) return null;
+        if (!user) return null;
 
         let component;
         switch (heading) {

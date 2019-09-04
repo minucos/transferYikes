@@ -4,11 +4,7 @@ json.user do
     end
 end
 
-json.wallet do
-    json.set! @user.wallet.id do
-        json.partial! "api/wallets/wallet", wallet: @user.wallet
-    end
-end
+json.balances @user.balances
 
 json.currencies do
     @user.currencies.each do |currency|
