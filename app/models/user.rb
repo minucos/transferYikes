@@ -85,47 +85,47 @@ class User < ApplicationRecord
         credits - debits
     end
 
-    def send_money(amount, currency_type, receiving_user)
-        raise "funds too low" if self.currency_balance(currency_type) < amount
-
-        from_currency = self.currencies.find_by(currency_type: currency_type)
-        from_currency.balance -= amount
-        receiving_user.receive_money(amount, currency_type)
-        from_currency.save!
-
-        return nil
-    end
-
-    def receive_money(amount, currency_type)
-        to_currency = self.currencies.find_by(currency_type: currency_type)
-
-        if to_currency 
-            to_currency.balance += amount
-            to_currency.save!
-            return to_currency.balance 
-        else
-            to_currency = Currency.new(currency_type: currency_type, balance: amount, wallet_id: self.wallet.id)
-            to_currency.save!
-            return to_currency.balance
-        end
-    end
-
+    
     def transactions
         Transaction.where('sender_id = :id OR receiver_id = :id', id: self.id)
-
+        
         # sent_transactions.concat(received_transactions)
     end
-
+    
     def balances
         Transaction::CURRENCIES.map do |currency|
             balance = {}
-
+            
             balance[currency] = currency_balance(currency)
-
+            
             balance
         end
     end
+    
+    # def send_money(amount, currency_type, receiving_user)
+    #     raise "funds too low" if self.currency_balance(currency_type) < amount
 
+    #     from_currency = self.currencies.find_by(currency_type: currency_type)
+    #     from_currency.balance -= amount
+    #     receiving_user.receive_money(amount, currency_type)
+    #     from_currency.save!
+
+    #     return nil
+    # end
+
+    # def receive_money(amount, currency_type)
+    #     to_currency = self.currencies.find_by(currency_type: currency_type)
+
+    #     if to_currency 
+    #         to_currency.balance += amount
+    #         to_currency.save!
+    #         return to_currency.balance 
+    #     else
+    #         to_currency = Currency.new(currency_type: currency_type, balance: amount, wallet_id: self.wallet.id)
+    #         to_currency.save!
+    #         return to_currency.balance
+    #     end
+    # end
 end
 
 

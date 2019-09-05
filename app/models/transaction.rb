@@ -33,7 +33,7 @@ class Transaction < ApplicationRecord
 
     def sufficient_funds
         return if User.find(sender_id).email == 'vault@transferyikes.com'
-        errors.add("Insufficient funds for this transaction") unless currency_balance >= sent_amount
+        errors.add(:Insufficient, "funds for this transaction") unless currency_balance >= sent_amount
     end
 
     def currency_balance

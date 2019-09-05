@@ -18,7 +18,7 @@ class Api::TransactionsController < ApplicationController
     end
 
     def index
-        @transactions = Transactions.where('sender_id = ? OR receiver_id = ?', current_user.id)
+        @transactions = current_user.transactions
 
         render json: @transactions
     end
@@ -28,9 +28,10 @@ class Api::TransactionsController < ApplicationController
         params.require(:transaction).permit(
             :name, 
             :description, 
-            :amount, 
+            :sent_amount, 
             :from_currency, 
             :to_currency, 
+            :exchange_rate,
             :receiver_id
         )
     end
