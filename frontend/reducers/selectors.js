@@ -87,3 +87,29 @@ export const toCurrency = (state) => {
         )[0]
 
 }
+
+export const calculateBalances = (state) => {
+    let id = state.session.id;
+    let transactions = Object.values(state.entities.transactions);
+
+    let balances = {
+        USD: 0,
+        AUD: 0,
+        GBP: 0,
+        EUR: 0,
+        CAD: 0,
+        CNY: 0,
+        JPY: 0
+
+    };
+
+    transactions.forEach( t => {
+        if (t.receiver_id === id) {
+            balances[t.to_currency] += t.received_amount;
+        } else {
+            balances[t.from_currency] -= t.sent_amount;
+        }
+    })
+
+    return balances;
+}

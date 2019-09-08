@@ -2,7 +2,6 @@ class Api::TransactionsController < ApplicationController
 
     def create
         @transaction = Transaction.new(trans_params)
-        @transaction.sender_id = current_user.id
 
         if @transaction.save
             render json: @transaction
@@ -20,7 +19,18 @@ class Api::TransactionsController < ApplicationController
     def index
         @transactions = current_user.transactions
 
-        render json: @transactions
+        render :index
+    end
+
+    def deposit
+        @transaction = Transaction.new(trans_params)
+        @transaction.fund_deposit(current_user.id)
+
+        if @transaction.save
+            render json: @transaction
+        else
+            render json: @transaction.errors.full_messages
+        end
     end
 
     private
@@ -35,5 +45,4 @@ class Api::TransactionsController < ApplicationController
             :receiver_id
         )
     end
-
 end

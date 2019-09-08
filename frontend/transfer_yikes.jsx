@@ -2,15 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/Root';
-import { login, logout, signup } from "./actions/session_actions";
-import { fetchCurrencies, fetchCurrency } from "./actions/currency_actions";
 
 // TESTING
-window.login = login;
-window.logout = logout;
-window.signup = signup;
-window.fetchCurrencies = fetchCurrencies;
-window.fetchCurrency = fetchCurrency;
+
 // END TESTING
 
 document.addEventListener('DOMContentLoaded', () => {

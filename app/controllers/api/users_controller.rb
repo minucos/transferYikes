@@ -15,7 +15,7 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        @user = User.includes(:wallet, :currencies).find(params[:id])
+        @user = User.includes(:wallet).find(params[:id])
 
         render :show
     end

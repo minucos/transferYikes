@@ -13,6 +13,10 @@ Rails.application.routes.draw do
 
     resources :wallets, only: [:show, :update]
     resources :currencies, only: [:create, :show, :index, :update, :destroy]
-    resources :transactions, only: [:create, :index, :show]
+    resources :transactions, only: [:create, :index, :show] do 
+      collection do 
+        post 'deposit'
+      end
+    end
   end
 end

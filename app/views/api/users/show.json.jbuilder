@@ -4,12 +4,8 @@ json.user do
     end
 end
 
-json.balances @user.balances
-
-json.currencies do
-    @user.currencies.each do |currency|
-        json.set! currency.id do
-            json.partial! "api/currencies/currency", currency: currency 
-        end
+json.transactions do
+    @user.transactions.each do |transaction|
+        json.partial! "api/transactions/transaction", transaction: transaction
     end
 end

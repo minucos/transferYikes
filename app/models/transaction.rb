@@ -44,4 +44,9 @@ class Transaction < ApplicationRecord
         self.received_amount ||= sent_amount * exchange_rate
     end
 
+    def fund_deposit(id)
+        self.sender_id = User.find_by(email: 'vault@transferyikes.com').id
+        self.receiver_id = id
+    end
+
 end

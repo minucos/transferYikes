@@ -3,11 +3,10 @@ import * as userAPIUtils from '../utils/user_API_utils';
 export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
 
-const receiveUser = ({user, balances, currencies}) => ({
+const receiveUser = ({user, transactions}) => ({
     type: RECEIVE_USER,
-    user: user,
-    balances: balances,
-    currencies: currencies
+    user,
+    transactions
 })
 
 const receiveErrors = errors => ({

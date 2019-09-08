@@ -23,7 +23,15 @@ class WalletBar extends React.Component {
 
         let amount = AMOUNTS[currency];
 
-        this.props.receiveCurrency(this.props.userId, currency, amount)
+        let transaction = {
+            name: 'Funds Deposit',
+            sent_amount: amount,
+            from_currency: currency,
+            to_currency: currency,
+            exchange_rate: 1,
+        }
+
+        this.props.depositTransaction(transaction)
     };
     
     walletBar() {

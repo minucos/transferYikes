@@ -2,10 +2,8 @@ import { connect } from 'react-redux';
 import ActivitiesIndex from './activities_index';
 
 const mapSTP = (state) => {
-    const userId = state.session.id;
-
     return ({
-        // activities: userActivies(state, userId)
+        transactions: Object.values(state.entities.transactions)
     })
 };
 

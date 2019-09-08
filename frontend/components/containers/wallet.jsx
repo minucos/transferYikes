@@ -13,7 +13,7 @@ class Wallet extends React.Component {
     }
 
     render() {
-        let { wallet, currencies, receiveCurrency } = this.props;
+        let { depositTransaction, balances } = this.props;
         
         // ['USD', 'AUD', 'GBP', 'EUR', 'CAD', 'CNY', 'JPY', 'XBT']
         return (
@@ -21,11 +21,10 @@ class Wallet extends React.Component {
                 <WalletBar 
                     userId={this.props.userId}
                     selectedCurrency={this.state.selectedCurrency} 
-                    updateCurrency={this.handleCurrency}
-                    receiveCurrency={receiveCurrency}
+                    depositTransaction={depositTransaction}
                 />
                 <CurrenciesIndex 
-                    currencies={currencies}
+                    balances={balances}
                 />
             </div>
         )

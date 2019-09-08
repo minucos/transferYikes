@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
-import { fetchUser, receiveCurrency } from '../../actions/user_actions';
+import { fetchUser } from '../../actions/user_actions';
+import { fetchAllTransactions, depositTransaction } from '../../actions/transaction_actions';
+import { calculateBalances } from '../../reducers/selectors';
 import Wallet from './wallet';
 
 const mapSTP = (state) => {
     let userId = state.session.id;
 
     return ({
-        balances: state.entities.balances,
+        balances: calculateBalances(state),
         defaultCurrency: "USD",
         userId: userId
     })
@@ -15,7 +17,8 @@ const mapSTP = (state) => {
 const mapDTP = (dispatch) => {
     return ({
         fetchUser: (userId) => dispatch(fetchUser(userId)),
-        receiveCurrency: (userId, currencyType, amount) => dispatch(receiveCurrency(userId, currencyType, amount))
+        fetchAllTransactions: () => dispatch(fetchAllTransactions()),
+        depositTransaction: (trans) => dispatch(depositTransaction(trans))
     })
 }
 

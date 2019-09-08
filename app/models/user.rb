@@ -21,12 +21,6 @@ class User < ApplicationRecord
 
     attr_reader :password
 
-    has_one :wallet
-
-    has_many :currencies,
-    through: :wallet,
-    source: :currencies
-
     has_many :sent_transactions,
     foreign_key: :sender_id,
     class_name: :Transaction
@@ -34,6 +28,14 @@ class User < ApplicationRecord
     has_many :received_transactions,
     foreign_key: :receiver_id,
     class_name: :Transaction
+
+    has_many :senders,
+    through: :received_transactions,
+    source: :sender
+
+    has_many :receivers,
+    through: :sent_transactions,
+    source: :receiver
 
     def password=(password)
         @password = password
@@ -90,6 +92,12 @@ class User < ApplicationRecord
         Transaction.where('sender_id = :id OR receiver_id = :id', id: self.id)
         
         # sent_transactions.concat(received_transactions)
+    end
+
+    def users
+        ids = senders.pluck(:id) + receivers.pluck(:id)
+
+        User.where(id: ids).where.not(id: id)
     end
     
     def balances
