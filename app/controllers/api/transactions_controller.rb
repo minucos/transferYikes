@@ -18,6 +18,7 @@ class Api::TransactionsController < ApplicationController
 
     def index
         @transactions = current_user.transactions
+        @user = User.find(current_user.id)
 
         render :index
     end

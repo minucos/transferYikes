@@ -14,10 +14,10 @@ const App = () => (
     <div>
         <ModalContainer />
         <Switch>
-            <ProtectedRoute path='/user/wallet' component={DashboardContainer}  />
             <AuthRoute path="/signup" component={SignUpContainer}/>
             <AuthRoute path="/login" component={LoginContainer}/>
-            <AuthRoute path="/" component={HomePage} />
+            <AuthRoute path="/home" component={HomePage} />
+            <ProtectedRoute path='/' component={DashboardContainer}  />
             <Redirect to="/"/>
         </Switch>
     </div>

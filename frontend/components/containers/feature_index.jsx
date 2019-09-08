@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 class FeatureIndex extends React.Component {
 
     render() {
-        let { showActivity, showWallet, showRecipients } = this.props;
-
         return (
             <ul className="nav-menu">
                 <li className="nav-item">
@@ -16,14 +14,14 @@ class FeatureIndex extends React.Component {
                         </div>
                     </Link>
                 </li>
-                <li className="nav-item" onClick={showActivity}>
-                    Activity
+                <li className="nav-item">
+                    <Link to='/activity'>Activity</Link>
                 </li>
-                <li className="nav-item" onClick={showWallet}>
-                    Wallet
+                <li className="nav-item">
+                    <Link to='/balances'>Balances</Link>
                 </li>
-                <li className="nav-item" onClick={showRecipients}>
-                    Recipients
+                <li className="nav-item">
+                    <Link to='/recipients'>Recipients</Link>
                 </li>
             </ul>
         )

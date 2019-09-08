@@ -4,9 +4,10 @@ export const RECEIVE_ALL_TRANSACTIONS = 'RECEIVE_ALL_TRANSACTIONS';
 export const RECEIVE_TRANSACTION = 'RECEIVE_TRANSACTION';
 export const RECEIVE_TRANSACTION_ERRORS = 'RECEIVE_TRANSACTION_ERRORS';
 
-const receiveAllTransactions = (transactions) => ({
+const receiveAllTransactions = ({ transactions, users }) => ({
     type: RECEIVE_ALL_TRANSACTIONS,
-    transactions
+    transactions,
+    users
 });
 
 const receiveTransaction = (transaction) => ({
@@ -21,7 +22,7 @@ const receiveErrors = (errors) => ({
 
 export const fetchAllTransactions = () => (dispatch) => {
     return TransAPI.fetchTransactions().then(
-        transactions => dispatch(receiveAllTransactions(transactions)),
+        payload => dispatch(receiveAllTransactions(payload)),
         errors => dispatch(receiveErrors(errors))
     );
 };

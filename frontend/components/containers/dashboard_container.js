@@ -6,6 +6,7 @@ import Dashboard from './dashboard';
 const mapStateToProps = (state) => {
     const userId = state.session.id;
 
+
     return ({
         userId: userId,
         user: state.entities.users[userId],

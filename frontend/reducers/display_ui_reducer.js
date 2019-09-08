@@ -1,6 +1,6 @@
 import { RECEIVE_UI_DISPLAY } from '../actions/ui_actions';
 
-const DisplayUIReducer = (oldState = 'Wallet', action) => {
+const DisplayUIReducer = (oldState = 'Activity', action) => {
     Object.freeze(oldState);
 
     switch (action.type) {

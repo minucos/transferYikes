@@ -97,7 +97,7 @@ class User < ApplicationRecord
     def users
         ids = senders.pluck(:id) + receivers.pluck(:id)
 
-        User.where(id: ids).where.not(id: id)
+        User.where(id: ids)
     end
     
     def balances

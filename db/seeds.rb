@@ -21,19 +21,6 @@ ActiveRecord::Base.transaction do
     # used for deposits/withdrawals
     bank = User.create!(email:"vault@transferyikes.com", fname: "Scrooge", lname: "McDuck", password: "no1dime")
 
-    # wallets
-    toby_wallet = Wallet.create!(title: "My wallet", user_id: toby.id)
-    andy_wallet = Wallet.create!(title: "My wallet", user_id: andy.id)
-
-    # currencies
-    # toby
-    toby_AUD = Currency.create!(currency_type: "AUD", balance: 900, wallet_id: toby_wallet.id)
-    toby_USD = Currency.create!(currency_type: "USD", balance: 1457.23, wallet_id: toby_wallet.id)
-    toby_GBP = Currency.create!(currency_type: "GBP", balance: 552.76, wallet_id: toby_wallet.id)
-    # andy
-    andy_AUD = Currency.create!(currency_type: "AUD", balance: 2649.89, wallet_id: andy_wallet.id)
-    andy_AUD = Currency.create!(currency_type: "USD", balance: 3705.28, wallet_id: andy_wallet.id)
-
     # transactions
     # andy deposits
     deposit1 = Transaction.create!(name: "Deposit", sent_amount: 1000, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: andy.id, exchange_rate: 1)

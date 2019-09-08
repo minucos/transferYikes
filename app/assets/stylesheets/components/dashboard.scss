@@ -18,18 +18,24 @@
             padding-left: 30px;
             padding-top: 20px;
             padding-bottom: 25px;
-            color: rgb(226,230,232);
-            font-weight: 100;
+            
+            a {
+                color: rgb(226,230,232);
+                font-weight: 100;
+
+            }
         }
 
-        .nav-item:hover {
+        .nav-item a:hover {
             color: rgb(67,185,251);
             cursor: pointer;
+            text-decoration: none;
         }
     }
 
     .detail-container  {
         width: calc(100% - 264px);
+        background: rgb(242,245,247);
 
             .navbar {
                 display: flex;

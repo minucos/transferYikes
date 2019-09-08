@@ -3,10 +3,9 @@ import * as userAPIUtils from '../utils/user_API_utils';
 export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_USER_ERRORS = "RECEIVE_USER_ERRORS";
 
-const receiveUser = ({user, transactions}) => ({
+const receiveUser = (user) => ({
     type: RECEIVE_USER,
-    user,
-    transactions
+    user
 })
 
 const receiveErrors = errors => ({
@@ -16,14 +15,7 @@ const receiveErrors = errors => ({
 
 export const fetchUser = (userId) => dispatch => {
     return userAPIUtils.fetchUser(userId).then( 
-            payload => dispatch(receiveUser(payload)),
-            errors => dispatch(receiveErrors(errors)),
-        )
-}
-
-export const receiveCurrency = (userId, currencyType, amount) => dispatch => {
-    return userAPIUtils.receiveCurrency(userId, currencyType, amount).then( 
-            payload => dispatch(receiveUser(payload)),
+            user => dispatch(receiveUser(user)),
             errors => dispatch(receiveErrors(errors)),
         )
 }
