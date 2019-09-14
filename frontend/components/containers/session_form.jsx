@@ -16,6 +16,7 @@ class SessionForm extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.loginDemo = this.loginDemo.bind(this);
+        this.demoLogin = this.demoLogin.bind(this);
     };
 
     update(field) {
@@ -26,18 +27,27 @@ class SessionForm extends React.Component {
         }
     };
 
-    handleSubmit(e) {
-        e.preventDefault();
-
-        this.props.processForm(this.state).then(
-            () => this.props.history.push('/activity')
-        )
+    handleSubmit() {
+        this.props.processForm(this.state);
     };
 
     loginDemo() {
-        this.props.processDemo({ email: "toby@email.com", password: "password" }).then(
-            () => this.props.history.push('/activity')
-        );
+        this.props.processDemo({ email: "toby@email.com", password: "password" });
+    }
+
+    demoLogin() {
+        const demoEmail = "toby@email.com";
+        const demoPassword = "password";
+
+        const typer = (string, type) => () => {
+            if (string.length > 0) {
+                this.setState({ [type]: this.state[type] + string[0] });
+                setTimeout(typer(string.slice(1), type), 50);
+            }
+        }
+        typer(demoEmail, "email")();
+        setTimeout(typer(demoPassword, "password"), 750);
+        setTimeout(this.handleSubmit, 1200);
     }
 
     render() {
@@ -48,7 +58,7 @@ class SessionForm extends React.Component {
         )
 
         const demoButton = () => (
-            <button className="btn-demo" onClick={this.loginDemo}>
+            <button className="btn-demo" onClick={this.demoLogin}>
                 Sign in with Demo User
             </button>
         )
@@ -70,7 +80,8 @@ class SessionForm extends React.Component {
         return (
             <div className="session-page">
                 <div className="session-left">
-                    <img src={this.images[Math.floor(Math.random() * 5)]} alt="photo"/>
+                    <img src={window.transamerica} alt="photo"/>
+                    {/* <img src={this.images[Math.floor(Math.random() * 5)]} alt="photo"/> */}
                 </div>
                 <div className="session-right">
                     <div className="session-right-logo">
