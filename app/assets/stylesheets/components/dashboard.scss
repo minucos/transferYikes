@@ -52,13 +52,34 @@
                     color: rgb(47,67,105);
                 }
         
-                .button {
-                    color: rgb(67,185,251);
+                .dropdown-button {
+                    color: rgb(55,81,126);
+                    height: 50px;
+                    line-height: 50px;
+                    font-weight: 600;
                 }
         
-                .button:hover {
-                    color: rgb(255,255,255);
+                .dropdown-content {
+                    display: none;
+                    color: rgb(55,81,126);
+                }
+
+                .dropdown-button:hover {
+                    color: rgb(67,185,251);
                     cursor: pointer;
+
+                    .dropdown-content {
+                        display: block;
+                        position: absolute;
+                        left: auto;
+                        right: 20px;
+                        width: 200px;
+                        height: 30px;
+                        border: 1px solid rgb(226,230,232);
+                        line-height: 30px;
+                        text-align: center;
+                        background: rgb(255,255,255);
+                    }
                 }
         
             }

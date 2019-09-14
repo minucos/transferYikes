@@ -30,7 +30,7 @@ class ActivitiesIndex extends React.Component {
                 <div className='activity-detail'>
                     <h1>History</h1>
                     <ul className='activity-list'>
-                        {transactions}
+                        {transactions.reverse()}
                     </ul>
                 </div>
             </div> 

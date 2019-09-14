@@ -5,7 +5,7 @@ class CurrencyChart extends React.Component {
 
     constructor(props) {
         super(props);
-        // debugger
+        
         this.state = {
             options: this.props.options,
         };

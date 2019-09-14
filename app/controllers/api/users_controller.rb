@@ -20,23 +20,10 @@ class Api::UsersController < ApplicationController
         render :show
     end
 
-    def receive
-        @user = User.find(params[:id])
+    def recipients
+        @recipients = User.find(current_user.id).receivers.where.not(id: current_user.id);
 
-        @user.receive_money(params[:amount].to_f, params[:currencyType])
-
-        render :show
-    end
-
-    def transfer
-        @user = User.find(params[:id])
-        @receiving_user = User.find(params[:receiver_id])
-        amount = params[:amount].to_f
-        currency_type = params[:currencyType]
-
-        @user.send_money(amount, currency_type, @receiving_user)
-
-        render json: @user.errors.full_messages
+        render :recipients
     end
 
     private

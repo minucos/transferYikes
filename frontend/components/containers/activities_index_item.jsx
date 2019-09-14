@@ -28,11 +28,11 @@ const ActivitiesIndexItem = (props) => {
                     </div>
                 </div>
                 <div className='item-amounts'>
-                    <div className='sent'>
-                        {t.sent_amount.toFixed(2)} {t.from_currency}
-                    </div>
-                    <div className='received'>
+                    <div className='top'>
                         {t.received_amount.toFixed(2)} {t.to_currency}
+                    </div>
+                    <div className='bottom'>
+                        {t.sent_amount.toFixed(2)} {t.from_currency}
                     </div>
                 </div>
             </li>
@@ -57,10 +57,10 @@ const ActivitiesIndexItem = (props) => {
                     </div>
                 </div>
                 <div className='item-amounts'>
-                    <div className='sent'>
+                    <div className='top'>
                         {t.sent_amount.toFixed(2)} {t.from_currency}
                     </div>
-                    <div className='received'>
+                    <div className='bottom'>
                         {t.received_amount.toFixed(2)} {t.to_currency}
                     </div>
                 </div>
@@ -87,11 +87,11 @@ const ActivitiesIndexItem = (props) => {
                     </div>
                 </div>
                 <div className='item-amounts'>
-                    <div className='sent'>
-                        {t.sent_amount.toFixed(2)} {t.from_currency}
-                    </div>
-                    <div className='received'>
+                    <div className='top'>
                         {t.received_amount.toFixed(2)} {t.to_currency}
+                    </div>
+                    <div className='bottom'>
+                        {t.sent_amount.toFixed(2)} {t.from_currency}
                     </div>
                 </div>
             </li>

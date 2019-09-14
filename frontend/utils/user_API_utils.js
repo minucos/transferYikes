@@ -3,7 +3,7 @@ export const fetchUser = (userId) => (
         method: "GET",
         url: `/api/users/${userId}`
     })
-)
+);
 
 export const receiveCurrency = (userId, currencyType, amount) => {
 
@@ -16,4 +16,11 @@ export const receiveCurrency = (userId, currencyType, amount) => {
         }   
     })
 
-}
+};
+
+export const fetchRecipients = () => (
+    $.ajax({
+        method: 'GET',
+        url: '/api/users/recipients'
+    })
+);

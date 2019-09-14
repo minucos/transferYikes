@@ -59,16 +59,16 @@
         justify-content: space-evenly;
     }
 
-    .sent, .received {
+    .top, .bottom {
         text-align: right;
     }
 
-    .sent {
+    .top {
         font-size: 20px;
         font-weight: 400;
     }
 
-    .received {
+    .bottom {
         font-size: 15px;
     }
 
