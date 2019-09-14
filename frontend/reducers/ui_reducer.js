@@ -4,7 +4,7 @@ import ModalReducer from './modal_reducer';
 
 const UIReducer = combineReducers({
     display: DisplayUIReducer,
-    modal: ModalReducer
+    modal: ModalReducer,
 })
 
 export default UIReducer;

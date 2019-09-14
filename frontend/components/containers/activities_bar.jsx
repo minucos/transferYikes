@@ -7,7 +7,7 @@ const ActivityBar = (props) => {
     
     return(
         <div className="activity-bar-container">
-            <Link to="/send">Send money</Link>
+            <Link to="/activity/send">Send money</Link>
             <div className="activity-search-container">
                 <input 
                     className="activity-search" 

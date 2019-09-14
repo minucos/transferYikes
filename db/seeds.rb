@@ -6,37 +6,88 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'date'
+
 ActiveRecord::Base.transaction do
     Transaction.destroy_all
-    Currency.destroy_all
-    Wallet.destroy_all 
     User.destroy_all
 
     # demo user
-    toby = User.create!(email:"toby@email.com", fname: "Toby", lname: "Dundridge", password: "password")
+    toby = User.create!(email:"toby@gmail.com", fname: "Toby", lname: "Dundridge", password: "password")
     
     # users
-    andy = User.create!(email:"andy@email.com", fname: "Andy", lname: "Minucos", password: "password")
+    User.create!([
+        { email:"andy@aa.io", fname: "Andy", lname: "Minucos", password: "password" },
+        { email:"holly@gmail.com", fname: "Holly", lname: "Minucos", password: "password" },
+        { email:"jenn@aa.io", fname: "Jennifer", lname: "Kennedy", password: "password" },
+        { email:"elliott@aa.io", fname: "Elliott", lname: "Humphrey", password: "password" },
+        { email:"ronil@aa.io", fname: "Ronil", lname: "Bhatia", password: "password" },
+        { email:"ryan@aa.io", fname: "Ryan", lname: "Mapa", password: "password" },
+        { email:"dean@aa.io", fname: "Matt", lname: "Lacap", password: "password" },
+        { email:"mike@aa.io", fname: "Mike", lname: "Madsen", password: "password"},
+        { email:"vanessa@aa.io", fname: "Vanessa", lname: "Walker", password: "password"},
+        { email:"angela@aa.io", fname: "Angela", lname: "Topchev", password: "password"},
+        { email:"carlos@aa.io", fname: "Carlos", lname: "Garcia", password: "password"},
+        { email:"alissa@aa.io", fname: "Alissa", lname: "Crane", password: "password"},
+        { email:"helen@aa.io", fname: "Helen", lname: "Yu", password: "password"},
+        { email:"michelle@aa.io", fname: "Michelle", lname: "Kim", password: "password"},
+        { email:"walker@aa.io", fname: "Sam", lname: "Walker", password: "password"},
+        { email:"darren@aa.io", fname: "Darren", lname: "Eid", password: "password"}
+    ])
 
     # used for deposits/withdrawals
     bank = User.create!(email:"vault@transferyikes.com", fname: "Scrooge", lname: "McDuck", password: "no1dime")
 
     # transactions
-    # andy deposits
-    deposit1 = Transaction.create!(name: "Deposit", sent_amount: 1000, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: andy.id, exchange_rate: 1, created_at: '01/10/2018')
-    deposit2 = Transaction.create!(name: "Deposit", sent_amount: 1200, from_currency: "AUD", to_currency: "AUD", sender_id: bank.id, receiver_id: andy.id, exchange_rate: 1, created_at: '10/8/2018')
-    deposit3 = Transaction.create!(name: "Deposit", sent_amount: 800, from_currency: "GBP", to_currency: "GBP", sender_id: bank.id, receiver_id: andy.id, exchange_rate: 1, created_at: '12/12/2018')
-    # toby deposits
-    deposit4 = Transaction.create!(name: "Deposit", sent_amount: 3400, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: toby.id, exchange_rate: 1, created_at: '01/01/2019')
-    deposit5 = Transaction.create!(name: "Deposit", sent_amount: 5600, from_currency: "AUD", to_currency: "AUD", sender_id: bank.id, receiver_id: toby.id, exchange_rate: 1, created_at: '27/02/2019')
-    deposit6 = Transaction.create!(name: "Deposit", sent_amount: 450, from_currency: "GBP", to_currency: "GBP", sender_id: bank.id, receiver_id: toby.id, exchange_rate: 1, created_at: '16/03/2019')
-    # toby tansfers
-    transfer1 = Transaction.create!(name: "Transfer", sent_amount: 150, from_currency: "USD", to_currency: "AUD", sender_id: toby.id, receiver_id: andy.id, exchange_rate: 1.47, created_at: '01/06/2019')
-    transfer2 = Transaction.create!(name: "Transfer", sent_amount: 300, from_currency: "AUD", to_currency: "USD", sender_id: toby.id, receiver_id: toby.id, exchange_rate: 0.67, created_at: '26/07/2019')
-    transfer3 = Transaction.create!(name: "Transfer", sent_amount: 200, from_currency: "GBP", to_currency: "AUD", sender_id: toby.id, receiver_id: andy.id, exchange_rate: 1.8, created_at: '06/08/2019')
-    # andy tansfers
-    transfer1 = Transaction.create!(name: "Transfer", sent_amount: 350, from_currency: "USD", to_currency: "GBP", sender_id: andy.id, receiver_id: toby.id, exchange_rate: 0.81, created_at: '14/05/2019')
-    transfer2 = Transaction.create!(name: "Transfer", sent_amount: 300, from_currency: "USD", to_currency: "EUR", sender_id: andy.id, receiver_id: andy.id, exchange_rate: 0.9, created_at: '08/08/2019')
-    transfer3 = Transaction.create!(name: "Transfer", sent_amount: 200, from_currency: "AUD", to_currency: "EUR", sender_id: andy.id, receiver_id: toby.id, exchange_rate: 0.62, created_at: '17/08/2019')
+    # initial deposits
+    User.where.not(email: 'vault@transferyikes.com').each do |user|
+        Transaction.create!(name: "Deposit", sent_amount: 100000, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: user.id, exchange_rate: 1, created_at: '01/01/2019')
+    end
 
+    all_user_ids = User.where.not(email: 'vault@transferyikes.com').pluck(:id)
+    currencies = ['USD','AUD','GBP','EUR','CAD','CNY','JPY']
+    rates = {
+        USD: 1,
+        AUD: 1.45,
+        GBP: 0.8,
+        EUR: 0.9,
+        CAD: 1.32,
+        CNY: 7.08,
+        JPY: 107.99
+    }
+
+    amounts = (1..1000).to_a
+    dates = (0..180).to_a
+    
+    def random_variance
+        n = rand()
+        until n > -0.1 && n < 0.1
+            n = rand() - rand()
+        end
+        n.round(3)
+    end
+
+    1000.times do |i|
+        amount = amounts.sample
+        currency = currencies.sample
+        rate = rates[currency.to_sym] + random_variance
+        date = DateTime.now - dates.sample
+        sender_id = all_user_ids.sample
+        receiver_id = all_user_ids.sample
+
+        until sender_id != receiver_id
+            receiver_id = all_user_ids.sample
+        end
+
+        Transaction.create!({
+            name: "Transfer", 
+            sent_amount: amount, 
+            from_currency: "USD", 
+            to_currency: currency, 
+            sender_id: sender_id, 
+            receiver_id: receiver_id, 
+            exchange_rate: rate, 
+            created_at: date.to_s
+        })
+    end
 end

@@ -2,9 +2,11 @@ export const userWallet = (state, userId) => {
     return state.entities.wallets[userId];
 } 
 
-export const userCurrencies = (state, walletId) => {
-    return Object.values(state.entities.currencies).filter( curr => curr.wallet_id == walletId)
-};
+export const sortTransactions = ({entities: { transactions } }) => {
+    return Object.values(transactions).sort((a,b) => {
+        return a.created_at < b.created_at ? -1 : 1;
+    })
+}
 
 export const userRates = ({ rates, base }) => {
     if ( base === undefined) {
