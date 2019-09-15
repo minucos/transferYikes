@@ -25,7 +25,7 @@ ActiveRecord::Base.transaction do
         { email:"ryan@aa.io", fname: "Ryan", lname: "Mapa", password: "password" },
         { email:"dean@aa.io", fname: "Matt", lname: "Lacap", password: "password" },
         { email:"mike@aa.io", fname: "Mike", lname: "Madsen", password: "password"},
-        { email:"vanessa@aa.io", fname: "Vanessa", lname: "Walker", password: "password"},
+        { email:"vanessa@aa.io", fname: "Vanessa", lname: "Chen", password: "password"},
         { email:"angela@aa.io", fname: "Angela", lname: "Topchev", password: "password"},
         { email:"carlos@aa.io", fname: "Carlos", lname: "Garcia", password: "password"},
         { email:"alissa@aa.io", fname: "Alissa", lname: "Crane", password: "password"},

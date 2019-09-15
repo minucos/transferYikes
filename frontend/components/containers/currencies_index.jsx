@@ -27,7 +27,7 @@ const CurrenciesIndex = (props) => {
         return (
             <tr key={currency} className="currencies-table-row">
                 <td>{currency} ( {symbol} )</td>
-                <td>{balance}</td>
+                <td className='balances'>{balance}</td>
                 <td>
                     <button>Send</button>
                     <button>Convert</button>

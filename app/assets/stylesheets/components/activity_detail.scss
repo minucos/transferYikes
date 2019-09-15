@@ -11,6 +11,21 @@
         .activity-list {
 
         }
+
+        .activity-pages {
+            display: flex;
+            color: rgb(46,67,105);
+
+            div {
+                padding: 0 5px;
+                height: 30px;
+                line-height: 30px;
+            }
+
+            .update-pages:hover {
+                cursor: pointer;
+            }
+        }
     }
 }
 

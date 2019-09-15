@@ -20,13 +20,19 @@ const receiveErrors = (errors) => ({
     errors
 });
 
-export const fetchAllTransactions = () => (dispatch) => {
-    return TransAPI.fetchTransactions().then(
+export const fetchTransactions = (page) => (dispatch) => {
+    return TransAPI.fetchTransactions(page).then(
         payload => dispatch(receiveAllTransactions(payload)),
         errors => dispatch(receiveErrors(errors))
     );
 };
 
+export const fetchAllTransactions = () => (dispatch) => {
+    return TransAPI.fetchAllTransactions().then(
+        payload => dispatch(receiveAllTransactions(payload)),
+        errors => dispatch(receiveErrors(errors))
+    );
+};
 export const createTransaction = (transaction) => (dispatch) => {
     return TransAPI.createTransaction(transaction).then(
         transaction => dispatch(receiveTransaction(transaction)),

@@ -17,7 +17,12 @@ class Api::TransactionsController < ApplicationController
     end
 
     def index
-        @transactions = current_user.transactions
+        if params[:page]
+            @transactions = current_user.transactions.page(params[:page]).per(15)
+        else
+            @transactions = current_user.transactions
+        end
+        
         @user = User.find(current_user.id)
 
         render :index

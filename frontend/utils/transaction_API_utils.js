@@ -1,4 +1,11 @@
-export const fetchTransactions = () => (
+export const fetchTransactions = (page) => (
+    $.ajax({
+        method: 'GET',
+        url: `api/transactions?page=${page}`
+    })
+);
+
+export const fetchAllTransactions = () => (
     $.ajax({
         method: 'GET',
         url: 'api/transactions'

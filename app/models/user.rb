@@ -89,7 +89,7 @@ class User < ApplicationRecord
 
     
     def transactions
-        Transaction.where('sender_id = :id OR receiver_id = :id', id: self.id)
+        Transaction.where('sender_id = :id OR receiver_id = :id', id: self.id).order('transactions.created_at DESC')
         
         # sent_transactions.concat(received_transactions)
     end
