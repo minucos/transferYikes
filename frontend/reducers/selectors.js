@@ -1,7 +1,3 @@
-export const userWallet = (state, userId) => {
-    return state.entities.wallets[userId];
-} 
-
 export const sortTransactions = ({entities: { transactions } }) => {
     return Object.values(transactions).sort((a,b) => {
         return a.created_at < b.created_at ? -1 : 1;
