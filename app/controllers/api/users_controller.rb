@@ -20,6 +20,14 @@ class Api::UsersController < ApplicationController
         render :show
     end
 
+    def index
+        @users = User.where('lower(fname) LIKE ?', "%#{params[:search_term]}%")
+            .or(User.where('lower(lname) LIKE ?', "%#{params[:search_term]}%"))
+            .or(User.where('lower(email) LIKE ?', "%#{params[:search_term]}%"))
+
+        render :index
+    end
+
     def recipients
         @recipients = User.find(current_user.id).receivers.where.not(id: current_user.id);
 

@@ -5,6 +5,13 @@ export const fetchUser = (userId) => (
     })
 );
 
+export const searchUsers = (searchTerm) => (
+    $.ajax({
+        method: 'GET',
+        url: `/api/users?search_term=${searchTerm}`
+    })
+)
+
 export const receiveCurrency = (userId, currencyType, amount) => {
 
     return $.ajax ({
