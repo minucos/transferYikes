@@ -7,7 +7,7 @@ const SessionReducer = (oldState = { id: null }, action) => {
         case RECEIVE_CURRENT_USER:
             debugger
             const userId = Object.values(action.user)[0].id;
-
+            
             return { id: userId};
 
         case LOGOUT_CURRENT_USER:

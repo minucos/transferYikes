@@ -1,1 +1,0 @@
-json.partial! "api/wallets/wallet", wallet: @wallet
