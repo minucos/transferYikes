@@ -38,7 +38,7 @@ const ActivitiesIndexItem = (props) => {
             </li>
         )
     } else if (currentUser.id === t.sender_id) {
-        let receiver = `${users[t.receiver_id].fname} ${users[t.receiver_id].lname}`;
+        let receiver = `${users[t.receiver_id].name}`;
 
         return (
             <li className='activity-index-item'>
@@ -68,7 +68,7 @@ const ActivitiesIndexItem = (props) => {
         )
     } else {
 
-        let sender = `${users[t.sender_id].fname} ${users[t.sender_id].lname}`;
+        let sender = `${users[t.sender_id].name}`;
         
         return (
             <li className='activity-index-item'>

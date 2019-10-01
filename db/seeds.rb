@@ -13,30 +13,30 @@ ActiveRecord::Base.transaction do
     User.destroy_all
 
     # demo user
-    toby = User.create!(email:"toby@gmail.com", fname: "Toby", lname: "Dundridge", password: "password")
+    toby = User.create!(email:"toby@gmail.com", name: "Toby Dundridge", password: "password")
     
     # users
     User.create!([
-        { email:"andy@aa.io", fname: "Andy", lname: "Minucos", password: "password" },
-        { email:"holly@gmail.com", fname: "Holly", lname: "Minucos", password: "password" },
-        { email:"jenn@aa.io", fname: "Jennifer", lname: "Kennedy", password: "password" },
-        { email:"elliott@aa.io", fname: "Elliott", lname: "Humphrey", password: "password" },
-        { email:"ronil@aa.io", fname: "Ronil", lname: "Bhatia", password: "password" },
-        { email:"ryan@aa.io", fname: "Ryan", lname: "Mapa", password: "password" },
-        { email:"dean@aa.io", fname: "Matt", lname: "Lacap", password: "password" },
-        { email:"mike@aa.io", fname: "Mike", lname: "Madsen", password: "password"},
-        { email:"vanessa@aa.io", fname: "Vanessa", lname: "Chen", password: "password"},
-        { email:"angela@aa.io", fname: "Angela", lname: "Topchev", password: "password"},
-        { email:"carlos@aa.io", fname: "Carlos", lname: "Garcia", password: "password"},
-        { email:"alissa@aa.io", fname: "Alissa", lname: "Crane", password: "password"},
-        { email:"helen@aa.io", fname: "Helen", lname: "Yu", password: "password"},
-        { email:"michelle@aa.io", fname: "Michelle", lname: "Kim", password: "password"},
-        { email:"walker@aa.io", fname: "Sam", lname: "Walker", password: "password"},
-        { email:"darren@aa.io", fname: "Darren", lname: "Eid", password: "password"}
+        { email:"andy@aa.io", name: "Andy Minucos", password: "password" },
+        { email:"holly@gmail.com", name: "Holly Minucos", password: "password" },
+        { email:"jenn@aa.io", name: "Jennifer Kennedy", password: "password" },
+        { email:"elliott@aa.io", name: "Elliott Humphrey", password: "password" },
+        { email:"ronil@aa.io", name: "Ronil Bhatia", password: "password" },
+        { email:"ryan@aa.io", name: "Ryan Mapa", password: "password" },
+        { email:"dean@aa.io", name: "Matt Lacap", password: "password" },
+        { email:"mike@aa.io", name: "Mike Madsen", password: "password"},
+        { email:"vanessa@aa.io", name: "Vanessa Chen", password: "password"},
+        { email:"angela@aa.io", name: "Angela Topchev", password: "password"},
+        { email:"carlos@aa.io", name: "Carlos Garcia", password: "password"},
+        { email:"alissa@aa.io", name: "Alissa Crane", password: "password"},
+        { email:"helen@aa.io", name: "Helen Yu", password: "password"},
+        { email:"michelle@aa.io", name: "Michelle Kim", password: "password"},
+        { email:"walker@aa.io", name: "Sam Walker", password: "password"},
+        { email:"darren@aa.io", name: "Darren Eid", password: "password"}
     ])
 
     # used for deposits/withdrawals
-    bank = User.create!(email:"vault@transferyikes.com", fname: "Scrooge", lname: "McDuck", password: "no1dime")
+    bank = User.create!(email:"vault@transferyikes.com", name: "Scrooge McDuck", password: "no1dime")
 
     # transactions
     # initial deposits

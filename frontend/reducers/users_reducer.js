@@ -13,7 +13,7 @@ const UsersReducer = (oldState = {}, action) => {
             return Object.assign({}, oldState, action.user);
 
         case RECEIVE_USERS:
-            return Object.assign({}, oldState, action.users);
+            return action.users;
 
         case RECEIVE_ALL_TRANSACTIONS:
             return Object.assign({}, oldState, action.users);

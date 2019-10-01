@@ -4,8 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  email           :string           not null
-#  fname           :string           not null
-#  lname           :string           not null
+#  name           :string           not null
 #  password_digest :string           not null
 #  session_token   :string           not null
 #  created_at      :datetime         not null
@@ -13,7 +12,7 @@
 #
 
 class User < ApplicationRecord
-    validates :email, :session_token, :password_digest, presence: true
+    validates :email, :name, :session_token, :password_digest, presence: true
     validates :email, :session_token, uniqueness: true
     validates :password, length: { minimum: 6, allow_nil: true }
 
@@ -89,7 +88,9 @@ class User < ApplicationRecord
 
     
     def transactions
-        Transaction.where('sender_id = :id OR receiver_id = :id', id: self.id).order('transactions.created_at DESC')
+        Transaction
+            .where('sender_id = :id OR receiver_id = :id', id: self.id)
+            .order('transactions.created_at DESC')
         
         # sent_transactions.concat(received_transactions)
     end

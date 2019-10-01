@@ -786,7 +786,7 @@ var ActivitiesIndexItem = function ActivitiesIndexItem(props) {
       className: "bottom"
     }, t.sent_amount.toFixed(2), " ", t.from_currency)));
   } else if (currentUser.id === t.sender_id) {
-    var receiver = "".concat(users[t.receiver_id].fname, " ").concat(users[t.receiver_id].lname);
+    var receiver = "".concat(users[t.receiver_id].name);
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       className: "activity-index-item"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -808,7 +808,7 @@ var ActivitiesIndexItem = function ActivitiesIndexItem(props) {
       className: "bottom"
     }, t.received_amount.toFixed(2), " ", t.to_currency)));
   } else {
-    var sender = "".concat(users[t.sender_id].fname, " ").concat(users[t.sender_id].lname);
+    var sender = "".concat(users[t.sender_id].name);
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
       className: "activity-index-item"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1707,7 +1707,7 @@ function (_React$Component) {
         className: "heading"
       }, heading), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dropdown-button"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "".concat(user.fname, " ").concat(user.lname, " "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "".concat(user.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"], {
         className: "logout-icon",
         icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faChevronDown"]
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2148,7 +2148,7 @@ function (_React$Component) {
           className: "rightbar"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "welcome"
-        }, "Welcome, ", currentUser.fname, "!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        }, "Welcome, ", currentUser.name, "!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
           className: "button",
           onClick: logout
         }, "Log out"));
@@ -2262,7 +2262,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var recipients = this.props.recipients.map(function (recipient) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, recipient.fname, " ", recipient.lname);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, recipient.name);
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, recipients);
     }
@@ -2358,8 +2358,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SessionForm).call(this, props));
     _this.state = {
       email: "",
-      fname: "",
-      lname: "",
+      name: "",
       password: ""
     };
     _this.images = [window.alamedaCove, window.yosemiteRiver, window.sunset, window.goldenFog, window.transamerica];
@@ -2478,7 +2477,12 @@ function (_React$Component) {
         value: this.state.email,
         placeholder: "Your email address",
         onChange: this.update("email")
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), this.props.formType === 'signup' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: this.state.name,
+        placeholder: "Your full name",
+        onChange: this.update("name")
+      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "password",
         value: this.state.password,
         placeholder: "Your password",
@@ -2559,7 +2563,15 @@ __webpack_require__.r(__webpack_exports__);
 var mapSTP = function mapSTP(state) {
   return {
     users: state.entities.users,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
+    form: {
+      name: '',
+      description: '',
+      sent_amount: 0,
+      from_currency: 'USD',
+      to_currency: 'USD',
+      exchange_rate: 1
+    }
   };
 };
 
@@ -2591,6 +2603,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2599,9 +2613,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -2614,18 +2628,50 @@ var SendMoneyForm =
 function (_React$Component) {
   _inherits(SendMoneyForm, _React$Component);
 
-  function SendMoneyForm() {
+  function SendMoneyForm(props) {
+    var _this;
+
     _classCallCheck(this, SendMoneyForm);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(SendMoneyForm).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(SendMoneyForm).call(this, props));
+    _this.state = _this.props.form;
+    _this.handleSearch = _this.handleSearch.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(SendMoneyForm, [{
+    key: "handleInput",
+    value: function handleInput(type) {
+      var _this2 = this;
+
+      return function (e) {
+        e.preventDefault();
+
+        _this2.setState(_defineProperty({}, type, e.target.value));
+      };
+    }
+  }, {
+    key: "handleSearch",
+    value: function handleSearch(e) {
+      this.props.searchUsers(e.target.value);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var currentUserId = this.props.currentUserId;
+      var users = Object.values(this.props.users).map(function (user, i) {
+        if (user.id !== currentUserId) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+            key: "user=".concat(i)
+          }, user.name);
+        }
+      });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "send-money-container"
-      }, "STUFF GOES HERE");
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Search"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        onChange: this.handleSearch
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Found Users"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, users));
     }
   }]);
 
@@ -3143,7 +3189,7 @@ var UsersReducer = function UsersReducer() {
       return Object.assign({}, oldState, action.user);
 
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_USERS"]:
-      return Object.assign({}, oldState, action.users);
+      return action.users;
 
     case _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_ALL_TRANSACTIONS"]:
       return Object.assign({}, oldState, action.users);

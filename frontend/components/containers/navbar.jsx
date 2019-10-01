@@ -14,7 +14,7 @@ class NavBar extends React.Component {
 
         let loggedIn = () => (
             <div className="rightbar">
-                <div className="welcome">Welcome, {currentUser.fname}!</div>
+                <div className="welcome">Welcome, {currentUser.name}!</div>
                 <a className="button" onClick={logout}>Log out</a>
             </div>
         )

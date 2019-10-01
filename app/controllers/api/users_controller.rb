@@ -4,9 +4,6 @@ class Api::UsersController < ApplicationController
         @user = User.new(user_params)
         
         if @user.save
-            wallet = Wallet.new(title: "my wallet")
-            wallet.user_id = @user.id
-            wallet.save
             login!(@user)
             render :show
         else
@@ -21,22 +18,23 @@ class Api::UsersController < ApplicationController
     end
 
     def index
-        @users = User.where('lower(fname) LIKE ?', "%#{params[:search_term]}%")
-            .or(User.where('lower(lname) LIKE ?', "%#{params[:search_term]}%"))
-            .or(User.where('lower(email) LIKE ?', "%#{params[:search_term]}%"))
+        @users = User.where('lower(name) LIKE ?', "%#{params[:search_term].downcase}%")
+            .or(User.where('lower(email) LIKE ?', "%#{params[:search_term].downcase}%"))
+            .or(User.where(id: current_user.id))
 
         render :index
     end
 
     def recipients
-        @recipients = User.find(current_user.id).receivers.where.not(id: current_user.id);
+        @recipients = User.find(current_user.id).receivers.where.not(id: current_user.id).uniq;
+        @recipients += User.where(id: current_user.id);
 
         render :recipients
     end
 
     private
     def user_params
-        params.require(:user).permit(:email, :fname, :lname, :password)
+        params.require(:user).permit(:email, :name, :password)
     end
     
 end

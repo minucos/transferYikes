@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
                     <div className="navbar">
                         <div className="heading">{heading}</div>
                         <div className="dropdown-button">
-                            <div>{`${user.fname} ${user.lname} `}
+                            <div>{`${user.name}`}
                                 <FontAwesomeIcon
                                     className='logout-icon'
                                     icon={faChevronDown}
