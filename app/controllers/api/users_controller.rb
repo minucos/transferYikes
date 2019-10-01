@@ -18,9 +18,7 @@ class Api::UsersController < ApplicationController
     end
 
     def index
-        @users = User.where('lower(name) LIKE ?', "%#{params[:search_term].downcase}%")
-            .or(User.where('lower(email) LIKE ?', "%#{params[:search_term].downcase}%"))
-            .or(User.where(id: current_user.id))
+        @users = User.search(params[:search_term], current_user.id)
 
         render :index
     end

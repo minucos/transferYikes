@@ -110,6 +110,15 @@ class User < ApplicationRecord
             balance
         end
     end
+
+    def self.search(search_term, id)
+        if search_term != ''
+            return User.where('lower(name) LIKE ?', "%#{search_term.downcase}%")
+                .or(User.where('lower(email) LIKE ?', "%#{search_term.downcase}%"))
+                .or(User.where(id: id))
+        end
+        return User.where(id: id)
+    end
 end
 
 

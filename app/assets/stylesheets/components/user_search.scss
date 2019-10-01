@@ -1,0 +1,22 @@
+.user-search {
+    display: flex;
+
+    input {
+
+    }
+
+    ul {
+        display: block;
+        position: absolute;
+
+        li {
+            background: white;
+            z-index: 1000;
+        }
+
+        li:hover {
+            cursor: pointer;
+            background: gray;
+        }
+    }
+}

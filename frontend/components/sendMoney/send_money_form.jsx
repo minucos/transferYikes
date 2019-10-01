@@ -1,4 +1,5 @@
 import React from 'react';
+import Search from '../userSearch/user_search';
 
 class SendMoneyForm extends React.Component {
     constructor(props) {
@@ -6,6 +7,7 @@ class SendMoneyForm extends React.Component {
 
         this.state = this.props.form;
         this.handleSearch = this.handleSearch.bind(this);
+        this.handleInput = this.handleInput.bind(this);
     }
 
     handleInput(type) {
@@ -20,26 +22,23 @@ class SendMoneyForm extends React.Component {
     }
     
     render() {
-        const { currentUserId } = this.props;
-
-        const users = Object.values(this.props.users).map((user, i) => {
-            if (user.id !== currentUserId) {
-                return(
-                    <li key={`user=${i}`}>{user.name}</li>
-                )
-            }
-        })
+        const { currentUserId, users } = this.props;
+        
+        let selectedUser = 'none';
+        if (this.state.receiver && users) {
+            selectedUser = users[this.state.receiver].name;
+        }
 
         return(
             <div className='send-money-container'>
-                <h2>Search</h2>
-                <div>
-                    <input type="text" onChange={this.handleSearch} />
-                </div>
-                <h2>Found Users</h2>
-                <ul>
-                    {users}
-                </ul>
+                <Search 
+                    users={Object.values(users)} 
+                    handleSearch={this.handleSearch}
+                    handleInput={this.handleInput}
+                    currentUserId={currentUserId}
+                />
+                <h1>SELECTED USER</h1>
+                {selectedUser}
             </div>
         )
     }

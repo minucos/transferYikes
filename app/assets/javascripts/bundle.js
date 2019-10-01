@@ -2601,6 +2601,7 @@ var mapDTP = function mapDTP(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _userSearch_user_search__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../userSearch/user_search */ "./frontend/components/userSearch/user_search.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -2623,6 +2624,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var SendMoneyForm =
 /*#__PURE__*/
 function (_React$Component) {
@@ -2636,6 +2638,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SendMoneyForm).call(this, props));
     _this.state = _this.props.form;
     _this.handleSearch = _this.handleSearch.bind(_assertThisInitialized(_this));
+    _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2658,20 +2661,23 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var currentUserId = this.props.currentUserId;
-      var users = Object.values(this.props.users).map(function (user, i) {
-        if (user.id !== currentUserId) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-            key: "user=".concat(i)
-          }, user.name);
-        }
-      });
+      var _this$props = this.props,
+          currentUserId = _this$props.currentUserId,
+          users = _this$props.users;
+      var selectedUser = 'none';
+
+      if (this.state.receiver && users) {
+        selectedUser = users[this.state.receiver].name;
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "send-money-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Search"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        onChange: this.handleSearch
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Found Users"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, users));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_userSearch_user_search__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        users: Object.values(users),
+        handleSearch: this.handleSearch,
+        handleInput: this.handleInput,
+        currentUserId: currentUserId
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "SELECTED USER"), selectedUser);
     }
   }]);
 
@@ -2680,6 +2686,44 @@ function (_React$Component) {
 
 ;
 /* harmony default export */ __webpack_exports__["default"] = (SendMoneyForm);
+
+/***/ }),
+
+/***/ "./frontend/components/userSearch/user_search.jsx":
+/*!********************************************************!*\
+  !*** ./frontend/components/userSearch/user_search.jsx ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var Search = function Search(props) {
+  var usersList = props.users.map(function (user, i) {
+    if (user.id !== props.currentUserId) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        key: "user=".concat(i),
+        onClick: props.handleInput('receiver'),
+        value: user.id
+      }, user.name);
+    }
+  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "user-search"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "User Search"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    type: "text",
+    placeholder: "Search by name or email",
+    onChange: props.handleSearch
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "user-list"
+  }, usersList)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Search);
 
 /***/ }),
 
