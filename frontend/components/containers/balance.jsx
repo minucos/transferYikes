@@ -16,6 +16,10 @@ class Balance extends React.Component {
         this.props.fetchAllTransactions();
     }
 
+    componentWillUnmount() {
+        this.props.clearTransactions(this.props.userId);
+    }
+
     render() {
         let { depositTransaction, balances } = this.props;
         

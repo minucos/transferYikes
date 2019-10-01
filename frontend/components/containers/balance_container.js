@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { fetchUser } from '../../actions/user_actions';
-import { fetchAllTransactions, depositTransaction } from '../../actions/transaction_actions';
+import { fetchAllTransactions, depositTransaction, clearTransactions } from '../../actions/transaction_actions';
 import { calculateBalances } from '../../reducers/selectors';
 import Balance from './balance';
 
@@ -18,7 +18,9 @@ const mapDTP = (dispatch) => {
     return ({
         fetchUser: (userId) => dispatch(fetchUser(userId)),
         fetchAllTransactions: () => dispatch(fetchAllTransactions()),
-        depositTransaction: (trans) => dispatch(depositTransaction(trans))
+        depositTransaction: (trans) => dispatch(depositTransaction(trans)),
+        clearTransactions: (id) => dispatch(clearTransactions(id))
+
     })
 }
 

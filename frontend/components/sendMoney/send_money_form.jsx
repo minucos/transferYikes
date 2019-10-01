@@ -39,7 +39,8 @@ class SendMoneyForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        this.props.createTransaction(this.state);
+        this.props.createTransaction(this.state)
+            .then(() => this.props.history.push('/activity'));
     }
     
     render() {

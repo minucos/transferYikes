@@ -7,7 +7,7 @@ const ActivitiesIndexItem = (props) => {
     let date = new Date(t.created_at);
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    date = `${date.getDate()} ${months[date.getMonth() - 1]} ${date.getFullYear()}`;
+    date = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
 
     if (currentUser.id === t.sender_id && currentUser.id === t.receiver_id) {
 

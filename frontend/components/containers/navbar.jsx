@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 // import { AuthRoute } from '../../utils/route_util';
 
 class NavBar extends React.Component {
+    componentDidMount() {
+        this.props.fetchCurrentUser(this.props.currentUser.id)
+    }
+
     render() {
         let { currentUser, logout } = this.props;
 

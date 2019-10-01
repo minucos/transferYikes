@@ -247,14 +247,16 @@ var logout = function logout() {
 /*!*************************************************!*\
   !*** ./frontend/actions/transaction_actions.js ***!
   \*************************************************/
-/*! exports provided: RECEIVE_ALL_TRANSACTIONS, RECEIVE_TRANSACTION, RECEIVE_TRANSACTION_ERRORS, fetchTransactions, fetchAllTransactions, createTransaction, depositTransaction */
+/*! exports provided: RECEIVE_ALL_TRANSACTIONS, RECEIVE_TRANSACTION, CLEAR_TRANSACTIONS, RECEIVE_TRANSACTION_ERRORS, clearTransactions, fetchTransactions, fetchAllTransactions, createTransaction, depositTransaction */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ALL_TRANSACTIONS", function() { return RECEIVE_ALL_TRANSACTIONS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_TRANSACTION", function() { return RECEIVE_TRANSACTION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_TRANSACTIONS", function() { return CLEAR_TRANSACTIONS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_TRANSACTION_ERRORS", function() { return RECEIVE_TRANSACTION_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearTransactions", function() { return clearTransactions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTransactions", function() { return fetchTransactions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllTransactions", function() { return fetchAllTransactions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTransaction", function() { return createTransaction; });
@@ -263,6 +265,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var RECEIVE_ALL_TRANSACTIONS = 'RECEIVE_ALL_TRANSACTIONS';
 var RECEIVE_TRANSACTION = 'RECEIVE_TRANSACTION';
+var CLEAR_TRANSACTIONS = "CLEAR_TRANSACTIONS";
 var RECEIVE_TRANSACTION_ERRORS = 'RECEIVE_TRANSACTION_ERRORS';
 
 var receiveAllTransactions = function receiveAllTransactions(_ref) {
@@ -278,11 +281,17 @@ var receiveAllTransactions = function receiveAllTransactions(_ref) {
 var receiveTransaction = function receiveTransaction(_ref2) {
   var transaction = _ref2.transaction,
       users = _ref2.users;
-  debugger;
   return {
     type: RECEIVE_TRANSACTION,
     transaction: transaction,
     users: users
+  };
+};
+
+var clearTransactions = function clearTransactions(id) {
+  return {
+    type: CLEAR_TRANSACTIONS,
+    id: id
   };
 };
 
@@ -614,6 +623,11 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.clearTransactions(this.props.currentUserId);
+    }
+  }, {
     key: "updatePage",
     value: function updatePage(page) {
       var _this2 = this;
@@ -669,11 +683,13 @@ function (_React$Component) {
     value: function render() {
       var _this$props2 = this.props,
           currentUser = _this$props2.currentUser,
-          users = _this$props2.users;
+          users = _this$props2.users,
+          transactions = _this$props2.transactions;
       var page = this.state.page;
       var totalTrans = currentUser.num_trans;
-      if (users === undefined || currentUser === undefined) return null;
-      var transactions = this.props.transactions.map(function (transaction) {
+      if (transactions.length === 0) return null;
+      console.log(this.state.page);
+      var transactionsList = transactions.map(function (transaction) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activities_index_item__WEBPACK_IMPORTED_MODULE_3__["default"], {
           key: transaction.id,
           t: transaction,
@@ -687,7 +703,7 @@ function (_React$Component) {
         className: "activity-detail"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "History"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "activity-list"
-      }, transactions.reverse()), this.pageIcons(page, totalTrans)));
+      }, transactionsList.reverse()), this.pageIcons(page, totalTrans)));
     }
   }]);
 
@@ -733,6 +749,9 @@ var mspDTP = function mspDTP(dispatch) {
     fetchTransactions: function fetchTransactions(page) {
       return dispatch(Object(_actions_transaction_actions__WEBPACK_IMPORTED_MODULE_1__["fetchTransactions"])(page));
     },
+    clearTransactions: function clearTransactions(id) {
+      return dispatch(Object(_actions_transaction_actions__WEBPACK_IMPORTED_MODULE_1__["clearTransactions"])(id));
+    },
     fetchUser: function fetchUser(id) {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUser"])(id));
     }
@@ -766,7 +785,7 @@ var ActivitiesIndexItem = function ActivitiesIndexItem(props) {
       users = props.users;
   var date = new Date(t.created_at);
   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  date = "".concat(date.getDate(), " ").concat(months[date.getMonth() - 1], " ").concat(date.getFullYear());
+  date = "".concat(date.getDate(), " ").concat(months[date.getMonth()], " ").concat(date.getFullYear());
 
   if (currentUser.id === t.sender_id && currentUser.id === t.receiver_id) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -900,6 +919,11 @@ function (_React$Component) {
       this.props.fetchAllTransactions();
     }
   }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.clearTransactions(this.props.userId);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -965,6 +989,9 @@ var mapDTP = function mapDTP(dispatch) {
     },
     depositTransaction: function depositTransaction(trans) {
       return dispatch(Object(_actions_transaction_actions__WEBPACK_IMPORTED_MODULE_2__["depositTransaction"])(trans));
+    },
+    clearTransactions: function clearTransactions(id) {
+      return dispatch(Object(_actions_transaction_actions__WEBPACK_IMPORTED_MODULE_2__["clearTransactions"])(id));
     }
   };
 };
@@ -2129,6 +2156,11 @@ function (_React$Component) {
   }
 
   _createClass(NavBar, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchCurrentUser(this.props.currentUser.id);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -2191,6 +2223,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _navbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./navbar */ "./frontend/components/containers/navbar.jsx");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+
 
 
 
@@ -2199,7 +2233,8 @@ var mapStateToProps = function mapStateToProps(state) {
   var users = state.entities.users;
   var currentUserId = state.session.id;
   return {
-    currentUser: users[currentUserId]
+    currentUser: users[currentUserId],
+    currentUserId: currentUserId
   };
 };
 
@@ -2207,6 +2242,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     logout: function logout() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["logout"])());
+    },
+    fetchCurrentUser: function fetchCurrentUser(id) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["fetchUser"])(id));
     }
   };
 };
@@ -2683,13 +2721,17 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this4 = this;
+
       e.preventDefault();
-      this.props.createTransaction(this.state);
+      this.props.createTransaction(this.state).then(function () {
+        return _this4.props.history.push('/activity');
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this5 = this;
 
       var _this$props = this.props,
           currentUserId = _this$props.currentUserId,
@@ -2713,7 +2755,7 @@ function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "send-money-form",
         onSubmit: function onSubmit(e) {
-          return _this4.handleSubmit(e);
+          return _this5.handleSubmit(e);
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
@@ -3161,7 +3203,6 @@ var SessionReducer = function SessionReducer() {
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      debugger;
       var userId = Object.values(action.user)[0].id;
       return {
         id: userId
@@ -3206,6 +3247,9 @@ var TransactionsReducer = function TransactionsReducer() {
 
     case _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_TRANSACTION"]:
       return Object.assign({}, oldState, action.transaction);
+
+    case _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_0__["CLEAR_TRANSACTIONS"]:
+      return {};
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["LOGOUT_CURRENT_USER"]:
       return {};
@@ -3284,6 +3328,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/transaction_actions */ "./frontend/actions/transaction_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3308,6 +3354,9 @@ var UsersReducer = function UsersReducer() {
 
     case _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_TRANSACTION"]:
       return Object.assign({}, oldState, action.users);
+
+    case _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_2__["CLEAR_TRANSACTIONS"]:
+      return Object.assign({}, _defineProperty({}, action.id, oldState[action.id]));
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_CURRENT_USER"]:
       return {};

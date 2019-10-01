@@ -4,7 +4,7 @@ class Recipients extends React.Component {
     componentDidMount() {
         this.props.fetchRecipients();
     }
-
+    
     render() {
         
         let recipients = this.props.recipients.map( recipient => {
