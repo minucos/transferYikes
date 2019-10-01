@@ -2639,6 +2639,7 @@ function (_React$Component) {
     _this.state = _this.props.form;
     _this.handleSearch = _this.handleSearch.bind(_assertThisInitialized(_this));
     _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2654,6 +2655,23 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "handleClick",
+    value: function handleClick(type) {
+      var _this3 = this;
+
+      return function (e) {
+        var _this3$setState;
+
+        e.preventDefault();
+        var userId = e.target.value;
+        var name = _this3.props.users[userId].name;
+
+        _this3.setState((_this3$setState = {}, _defineProperty(_this3$setState, type, userId), _defineProperty(_this3$setState, "name", name), _this3$setState), function () {
+          return _this3.props.searchUsers('');
+        });
+      };
+    }
+  }, {
     key: "handleSearch",
     value: function handleSearch(e) {
       this.props.searchUsers(e.target.value);
@@ -2664,20 +2682,16 @@ function (_React$Component) {
       var _this$props = this.props,
           currentUserId = _this$props.currentUserId,
           users = _this$props.users;
-      var selectedUser = 'none';
-
-      if (this.state.receiver && users) {
-        selectedUser = users[this.state.receiver].name;
-      }
-
+      var receiver = this.state.receiver;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "send-money-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_userSearch_user_search__WEBPACK_IMPORTED_MODULE_1__["default"], {
         users: Object.values(users),
         handleSearch: this.handleSearch,
-        handleInput: this.handleInput,
-        currentUserId: currentUserId
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "SELECTED USER"), selectedUser);
+        handleClick: this.handleClick,
+        currentUserId: currentUserId,
+        receiver: receiver
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "SELECTED USER"), this.state.name);
     }
   }]);
 
@@ -2707,7 +2721,7 @@ var Search = function Search(props) {
     if (user.id !== props.currentUserId) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: "user=".concat(i),
-        onClick: props.handleInput('receiver'),
+        onClick: props.handleClick('receiver'),
         value: user.id
       }, user.name);
     }

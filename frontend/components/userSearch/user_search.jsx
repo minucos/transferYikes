@@ -7,7 +7,7 @@ const Search = (props) => {
             return (
                 <li
                     key={`user=${i}`}
-                    onClick={props.handleInput('receiver')}
+                    onClick={props.handleClick('receiver')}
                     value={user.id}
                 >
                     {user.name}

@@ -8,12 +8,27 @@ class SendMoneyForm extends React.Component {
         this.state = this.props.form;
         this.handleSearch = this.handleSearch.bind(this);
         this.handleInput = this.handleInput.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     handleInput(type) {
         return (e) => {
             e.preventDefault();
             this.setState({ [type]: e.target.value });
+        }
+    }
+
+    handleClick(type) {
+        return (e) => {
+            e.preventDefault();
+            const userId = e.target.value;
+            const name = this.props.users[userId].name;
+            this.setState(
+                { 
+                    [type]: userId,
+                    name: name 
+                },
+                () => this.props.searchUsers(''));
         }
     }
     
@@ -23,22 +38,19 @@ class SendMoneyForm extends React.Component {
     
     render() {
         const { currentUserId, users } = this.props;
-        
-        let selectedUser = 'none';
-        if (this.state.receiver && users) {
-            selectedUser = users[this.state.receiver].name;
-        }
-
+        const { receiver } = this.state;
+         
         return(
             <div className='send-money-container'>
                 <Search 
                     users={Object.values(users)} 
                     handleSearch={this.handleSearch}
-                    handleInput={this.handleInput}
+                    handleClick={this.handleClick}
                     currentUserId={currentUserId}
+                    receiver={receiver}
                 />
                 <h1>SELECTED USER</h1>
-                {selectedUser}
+                {this.state.name}
             </div>
         )
     }
