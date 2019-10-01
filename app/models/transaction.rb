@@ -49,4 +49,8 @@ class Transaction < ApplicationRecord
         self.receiver_id = id
     end
 
+    def users
+        ids = [sender.id, receiver.id]
+        User.where(id: ids)
+    end
 end

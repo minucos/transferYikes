@@ -9,7 +9,7 @@ const TransactionsReducer = (oldState = {}, action) => {
             return action.transactions;
 
         case RECEIVE_TRANSACTION:
-            return Object.assign({}, oldState, { [action.transaction.id]: action.transaction });
+            return Object.assign({}, oldState, action.transaction);
 
         case LOGOUT_CURRENT_USER:
             return {};

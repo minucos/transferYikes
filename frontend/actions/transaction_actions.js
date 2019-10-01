@@ -10,10 +10,14 @@ const receiveAllTransactions = ({ transactions, users }) => ({
     users
 });
 
-const receiveTransaction = (transaction) => ({
-    type: RECEIVE_TRANSACTION,
-    transaction
-});
+const receiveTransaction = ({transaction, users}) => {
+    debugger
+    return({
+        type: RECEIVE_TRANSACTION,
+        transaction,
+        users
+    });
+}
 
 const receiveErrors = (errors) => ({
     type: RECEIVE_TRANSACTION_ERRORS,
@@ -35,7 +39,7 @@ export const fetchAllTransactions = () => (dispatch) => {
 };
 export const createTransaction = (transaction) => (dispatch) => {
     return TransAPI.createTransaction(transaction).then(
-        transaction => dispatch(receiveTransaction(transaction)),
+        payload => dispatch(receiveTransaction(payload)),
         errors => dispatch(receiveErrors(errors))
     );
 };

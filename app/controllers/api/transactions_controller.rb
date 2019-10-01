@@ -2,9 +2,10 @@ class Api::TransactionsController < ApplicationController
 
     def create
         @transaction = Transaction.new(trans_params)
+        @transaction.sender_id = current_user.id
 
         if @transaction.save
-            render json: @transaction
+            render :show
         else
             render json: @transaction.errors.full_messages
         end

@@ -26,7 +26,7 @@ class SendMoneyForm extends React.Component {
             this.setState(
                 { 
                     [type]: userId,
-                    name: name 
+                    receiverName: name 
                 },
                 () => this.props.searchUsers(''));
         }
@@ -35,10 +35,16 @@ class SendMoneyForm extends React.Component {
     handleSearch(e) {
         this.props.searchUsers(e.target.value);
     }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        this.props.createTransaction(this.state);
+    }
     
     render() {
         const { currentUserId, users } = this.props;
-        const { receiver } = this.state;
+        const { name, description, from_currency, to_currency, sent_amount, exchange_rate, receiver_id, receiverName } = this.state;
          
         return(
             <div className='send-money-container'>
@@ -47,13 +53,39 @@ class SendMoneyForm extends React.Component {
                     handleSearch={this.handleSearch}
                     handleClick={this.handleClick}
                     currentUserId={currentUserId}
-                    receiver={receiver}
                 />
-                <h1>SELECTED USER</h1>
-                {this.state.name}
+                <form className='send-money-form' onSubmit={(e) => this.handleSubmit(e)}>
+                    <label>Name:
+                        <input type="text" value={name} onChange={this.handleInput('name')}/>
+                    </label>
+                    <label>Description:
+                        <input type="text" value={description} onChange={this.handleInput('description')}/>
+                    </label>
+                    <label>Send Amount:
+                        <input type="float" value={sent_amount} onChange={this.handleInput('sent_amount')}/>
+                    </label>
+                    <label>From:
+                        <input type="text" value={from_currency} onChange={this.handleInput('from_currency')}/>
+                    </label>
+                    <label>To:
+                        <input type="text" value={to_currency} onChange={this.handleInput('to_currency')}/>
+                    </label>
+                    <label>Exchange Rate:
+                        <input type="text" value={exchange_rate} onChange={this.handleInput('exchange_rate')}/>
+                    </label>
+                    <div>Receiver: {receiverName}</div>
+                    <input type="submit" value="Send Money!"/>
+                </form>
             </div>
         )
     }
 };
 
 export default SendMoneyForm;
+
+// name: '',
+//     description: '',
+//         sent_amount: 0,
+//             from_currency: 'USD',
+//                 to_currency: 'USD',
+//                     exchange_rate: 1

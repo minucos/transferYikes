@@ -275,10 +275,14 @@ var receiveAllTransactions = function receiveAllTransactions(_ref) {
   };
 };
 
-var receiveTransaction = function receiveTransaction(transaction) {
+var receiveTransaction = function receiveTransaction(_ref2) {
+  var transaction = _ref2.transaction,
+      users = _ref2.users;
+  debugger;
   return {
     type: RECEIVE_TRANSACTION,
-    transaction: transaction
+    transaction: transaction,
+    users: users
   };
 };
 
@@ -309,8 +313,8 @@ var fetchAllTransactions = function fetchAllTransactions() {
 };
 var createTransaction = function createTransaction(transaction) {
   return function (dispatch) {
-    return _utils_transaction_API_utils__WEBPACK_IMPORTED_MODULE_0__["createTransaction"](transaction).then(function (transaction) {
-      return dispatch(receiveTransaction(transaction));
+    return _utils_transaction_API_utils__WEBPACK_IMPORTED_MODULE_0__["createTransaction"](transaction).then(function (payload) {
+      return dispatch(receiveTransaction(payload));
     }, function (errors) {
       return dispatch(receiveErrors(errors));
     });
@@ -2666,7 +2670,7 @@ function (_React$Component) {
         var userId = e.target.value;
         var name = _this3.props.users[userId].name;
 
-        _this3.setState((_this3$setState = {}, _defineProperty(_this3$setState, type, userId), _defineProperty(_this3$setState, "name", name), _this3$setState), function () {
+        _this3.setState((_this3$setState = {}, _defineProperty(_this3$setState, type, userId), _defineProperty(_this3$setState, "receiverName", name), _this3$setState), function () {
           return _this3.props.searchUsers('');
         });
       };
@@ -2677,21 +2681,68 @@ function (_React$Component) {
       this.props.searchUsers(e.target.value);
     }
   }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      this.props.createTransaction(this.state);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       var _this$props = this.props,
           currentUserId = _this$props.currentUserId,
           users = _this$props.users;
-      var receiver = this.state.receiver;
+      var _this$state = this.state,
+          name = _this$state.name,
+          description = _this$state.description,
+          from_currency = _this$state.from_currency,
+          to_currency = _this$state.to_currency,
+          sent_amount = _this$state.sent_amount,
+          exchange_rate = _this$state.exchange_rate,
+          receiver_id = _this$state.receiver_id,
+          receiverName = _this$state.receiverName;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "send-money-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_userSearch_user_search__WEBPACK_IMPORTED_MODULE_1__["default"], {
         users: Object.values(users),
         handleSearch: this.handleSearch,
         handleClick: this.handleClick,
-        currentUserId: currentUserId,
-        receiver: receiver
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "SELECTED USER"), this.state.name);
+        currentUserId: currentUserId
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "send-money-form",
+        onSubmit: function onSubmit(e) {
+          return _this4.handleSubmit(e);
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: name,
+        onChange: this.handleInput('name')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Description:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: description,
+        onChange: this.handleInput('description')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Send Amount:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "float",
+        value: sent_amount,
+        onChange: this.handleInput('sent_amount')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "From:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: from_currency,
+        onChange: this.handleInput('from_currency')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "To:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: to_currency,
+        onChange: this.handleInput('to_currency')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Exchange Rate:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: exchange_rate,
+        onChange: this.handleInput('exchange_rate')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Receiver: ", receiverName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        value: "Send Money!"
+      })));
     }
   }]);
 
@@ -2699,7 +2750,12 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 ;
-/* harmony default export */ __webpack_exports__["default"] = (SendMoneyForm);
+/* harmony default export */ __webpack_exports__["default"] = (SendMoneyForm); // name: '',
+//     description: '',
+//         sent_amount: 0,
+//             from_currency: 'USD',
+//                 to_currency: 'USD',
+//                     exchange_rate: 1
 
 /***/ }),
 
@@ -2721,7 +2777,7 @@ var Search = function Search(props) {
     if (user.id !== props.currentUserId) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: "user=".concat(i),
-        onClick: props.handleClick('receiver'),
+        onClick: props.handleClick('receiver_id'),
         value: user.id
       }, user.name);
     }
@@ -3136,8 +3192,6 @@ var SessionReducer = function SessionReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/transaction_actions */ "./frontend/actions/transaction_actions.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -3151,7 +3205,7 @@ var TransactionsReducer = function TransactionsReducer() {
       return action.transactions;
 
     case _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_TRANSACTION"]:
-      return Object.assign({}, oldState, _defineProperty({}, action.transaction.id, action.transaction));
+      return Object.assign({}, oldState, action.transaction);
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["LOGOUT_CURRENT_USER"]:
       return {};
@@ -3250,6 +3304,9 @@ var UsersReducer = function UsersReducer() {
       return action.users;
 
     case _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_ALL_TRANSACTIONS"]:
+      return Object.assign({}, oldState, action.users);
+
+    case _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_TRANSACTION"]:
       return Object.assign({}, oldState, action.users);
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_CURRENT_USER"]:
