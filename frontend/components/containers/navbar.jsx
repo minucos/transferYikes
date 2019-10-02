@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 
 class NavBar extends React.Component {
     componentDidMount() {
-        this.props.fetchCurrentUser(this.props.currentUser.id)
+        if (this.props.currentUserId) {
+            this.props.fetchCurrentUser(this.props.currentUserId)
+        }
     }
 
     render() {

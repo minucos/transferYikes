@@ -10,7 +10,7 @@ const Search = (props) => {
                     onClick={props.handleClick('receiver_id')}
                     value={user.id}
                 >
-                    {user.name}
+                    {user.name} <span>| {user.email}</span>
                 </li>
             )
         }

@@ -56,26 +56,35 @@ class SendMoneyForm extends React.Component {
                     currentUserId={currentUserId}
                 />
                 <form className='send-money-form' onSubmit={(e) => this.handleSubmit(e)}>
-                    <label>Name:
+                    <div className='input-box'>
+                        <label>Name:</label>
                         <input type="text" value={name} onChange={this.handleInput('name')}/>
-                    </label>
-                    <label>Description:
+                    </div>
+                    <div className='input-box'>
+                        <label>Description:</label>
                         <input type="text" value={description} onChange={this.handleInput('description')}/>
-                    </label>
-                    <label>Send Amount:
+                    </div>
+                    <div className='input-box'>
+                        <label>Send Amount:</label>
                         <input type="float" value={sent_amount} onChange={this.handleInput('sent_amount')}/>
-                    </label>
-                    <label>From:
+                    </div>
+                    <div className='input-box'>
+                        <label>From:</label>
                         <input type="text" value={from_currency} onChange={this.handleInput('from_currency')}/>
-                    </label>
-                    <label>To:
+                    </div>
+                    <div className='input-box'>
+                        <label>To:</label>
                         <input type="text" value={to_currency} onChange={this.handleInput('to_currency')}/>
-                    </label>
-                    <label>Exchange Rate:
-                        <input type="text" value={exchange_rate} onChange={this.handleInput('exchange_rate')}/>
-                    </label>
-                    <div>Receiver: {receiverName}</div>
-                    <input type="submit" value="Send Money!"/>
+                    </div>
+                    <div className='input-box'>
+                        <label>Exchange Rate:</label>
+                        <label>{exchange_rate}</label>
+                    </div>
+                    <div className="input-box">
+                        <label>Receiver:</label>
+                        <label>{receiverName}</label>
+                    </div>
+                    <input className="submit-button" type="submit" value="Send Money!"/>
                 </form>
             </div>
         )

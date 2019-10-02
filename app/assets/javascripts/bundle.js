@@ -1386,9 +1386,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_rate_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/rate_actions */ "./frontend/actions/rate_actions.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
-/* harmony import */ var _conversion_calculator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./conversion_calculator */ "./frontend/components/containers/conversion_calculator.jsx");
-
+/* harmony import */ var _conversion_calculator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./conversion_calculator */ "./frontend/components/containers/conversion_calculator.jsx");
 
 
 
@@ -1396,7 +1394,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapSTP = function mapSTP(state) {
   return {
-    currencies: ['USD', 'AUD', 'GBP', 'EUR', 'CAD', 'CNY', 'JPY', 'XBT'],
+    currencies: ['USD', 'AUD', 'GBP', 'EUR', 'CAD', 'CNY', 'JPY'],
     rates: state.entities.rates.rates,
     base: state.entities.rates.base
   };
@@ -1416,7 +1414,7 @@ var mapDTP = function mapDTP(dispatch) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapSTP, mapDTP)(_conversion_calculator__WEBPACK_IMPORTED_MODULE_4__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapSTP, mapDTP)(_conversion_calculator__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -2158,7 +2156,9 @@ function (_React$Component) {
   _createClass(NavBar, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchCurrentUser(this.props.currentUser.id);
+      if (this.props.currentUserId) {
+        this.props.fetchCurrentUser(this.props.currentUserId);
+      }
     }
   }, {
     key: "render",
@@ -2596,7 +2596,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_transaction_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/transaction_actions */ "./frontend/actions/transaction_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
-/* harmony import */ var _send_money_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./send_money_form */ "./frontend/components/sendMoney/send_money_form.jsx");
+/* harmony import */ var _actions_rate_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/rate_actions */ "./frontend/actions/rate_actions.js");
+/* harmony import */ var _send_money_form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./send_money_form */ "./frontend/components/sendMoney/send_money_form.jsx");
+
 
 
 
@@ -2604,6 +2606,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapSTP = function mapSTP(state) {
   return {
+    currencies: ['USD', 'AUD', 'GBP', 'EUR', 'CAD', 'CNY', 'JPY'],
+    rates: state.entities.rates.rates,
+    base: state.entities.rates.base,
     users: state.entities.users,
     currentUserId: state.session.id,
     form: {
@@ -2624,11 +2629,17 @@ var mapDTP = function mapDTP(dispatch) {
     },
     searchUsers: function searchUsers(searchTerm) {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["searchUsers"])(searchTerm));
+    },
+    fetchRates: function fetchRates(base) {
+      return dispatch(Object(_actions_rate_actions__WEBPACK_IMPORTED_MODULE_3__["fetchRates"])(base));
+    },
+    fetchHistoricalData: function fetchHistoricalData(from, to) {
+      return dispatch(Object(_actions_rate_actions__WEBPACK_IMPORTED_MODULE_3__["fetchHistoricalData"])(from, to));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapSTP, mapDTP)(_send_money_form__WEBPACK_IMPORTED_MODULE_3__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapSTP, mapDTP)(_send_money_form__WEBPACK_IMPORTED_MODULE_4__["default"]));
 
 /***/ }),
 
@@ -2757,31 +2768,42 @@ function (_React$Component) {
         onSubmit: function onSubmit(e) {
           return _this5.handleSubmit(e);
         }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-box"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Name:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: name,
         onChange: this.handleInput('name')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Description:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-box"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Description:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: description,
         onChange: this.handleInput('description')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Send Amount:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-box"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Send Amount:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "float",
         value: sent_amount,
         onChange: this.handleInput('sent_amount')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "From:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-box"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "From:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: from_currency,
         onChange: this.handleInput('from_currency')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "To:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-box"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "To:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: to_currency,
         onChange: this.handleInput('to_currency')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Exchange Rate:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        value: exchange_rate,
-        onChange: this.handleInput('exchange_rate')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Receiver: ", receiverName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-box"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Exchange Rate:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, exchange_rate)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "input-box"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Receiver:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, receiverName)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "submit-button",
         type: "submit",
         value: "Send Money!"
       })));
@@ -2821,7 +2843,7 @@ var Search = function Search(props) {
         key: "user=".concat(i),
         onClick: props.handleClick('receiver_id'),
         value: user.id
-      }, user.name);
+      }, user.name, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "| ", user.email));
     }
   });
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
