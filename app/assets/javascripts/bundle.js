@@ -2605,19 +2605,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapSTP = function mapSTP(state) {
+  var from = state.entities.rates.base;
+  var to = Object.keys(state.entities.rates.rates)[0];
+  var rate = Object.values(state.entities.rates.rates)[0];
   return {
-    currencies: ['USD', 'AUD', 'GBP', 'EUR', 'CAD', 'CNY', 'JPY'],
-    rates: state.entities.rates.rates,
-    base: state.entities.rates.base,
     users: state.entities.users,
     currentUserId: state.session.id,
     form: {
       name: '',
       description: '',
       sent_amount: 0,
-      from_currency: 'USD',
-      to_currency: 'USD',
-      exchange_rate: 1
+      from_currency: from,
+      to_currency: to,
+      exchange_rate: rate
     }
   };
 };
@@ -2630,8 +2630,8 @@ var mapDTP = function mapDTP(dispatch) {
     searchUsers: function searchUsers(searchTerm) {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["searchUsers"])(searchTerm));
     },
-    fetchRates: function fetchRates(base) {
-      return dispatch(Object(_actions_rate_actions__WEBPACK_IMPORTED_MODULE_3__["fetchRates"])(base));
+    fetchRate: function fetchRate(from, to) {
+      return dispatch(Object(_actions_rate_actions__WEBPACK_IMPORTED_MODULE_3__["fetchRate"])(from, to));
     },
     fetchHistoricalData: function fetchHistoricalData(from, to) {
       return dispatch(Object(_actions_rate_actions__WEBPACK_IMPORTED_MODULE_3__["fetchHistoricalData"])(from, to));
@@ -2690,6 +2690,15 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SendMoneyForm).call(this, props));
     _this.state = _this.props.form;
+    _this.symbols = {
+      "USD": "$",
+      "AUD": "$",
+      "GBP": "£",
+      "EUR": "€",
+      "CAD": "$",
+      "CNY": "¥",
+      "JPY": "¥"
+    };
     _this.handleSearch = _this.handleSearch.bind(_assertThisInitialized(_this));
     _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
@@ -2984,9 +2993,15 @@ var ModalReducer = function ModalReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_rate_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/rate_actions */ "./frontend/actions/rate_actions.js");
 
+var _base = {
+  base: 'USD',
+  rates: {
+    'USD': 1
+  }
+};
 
 var RatesReducer = function RatesReducer() {
-  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var oldState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _base;
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(oldState);
   var newState;
@@ -3475,12 +3490,13 @@ document.addEventListener('DOMContentLoaded', function () {
 /*!*******************************************!*\
   !*** ./frontend/utils/rates_API_utils.js ***!
   \*******************************************/
-/*! exports provided: fetchRates, fetchHistoricalData */
+/*! exports provided: fetchRates, fetchRate, fetchHistoricalData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRates", function() { return fetchRates; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRate", function() { return fetchRate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchHistoricalData", function() { return fetchHistoricalData; });
 Date.prototype.ymd = function () {
   var mm = this.getMonth() + 1; // getMonth() is zero-based
@@ -3496,6 +3512,12 @@ var fetchRates = function fetchRates(base) {
   return $.ajax({
     method: "GET",
     url: "https://api.exchangeratesapi.io/latest?base=".concat(base, "&symbols=").concat(symbols.join(','))
+  });
+};
+var fetchRate = function fetchRate(from, to) {
+  return $.ajax({
+    method: "GET",
+    url: "https://api.exchangeratesapi.io/latest?base=".concat(from, "&symbols=").concat(to)
   });
 };
 var fetchHistoricalData = function fetchHistoricalData(from, to) {

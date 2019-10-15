@@ -6,6 +6,17 @@ class SendMoneyForm extends React.Component {
         super(props);
 
         this.state = this.props.form;
+
+        this.symbols = {
+            "USD": "$",
+            "AUD": "$",
+            "GBP": "£",
+            "EUR": "€",
+            "CAD": "$",
+            "CNY": "¥",
+            "JPY": "¥"
+        }
+
         this.handleSearch = this.handleSearch.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.handleClick = this.handleClick.bind(this);

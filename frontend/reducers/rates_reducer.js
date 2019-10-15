@@ -1,6 +1,13 @@
 import { RECEIVE_RATES, RECEIVE_HISTORICAL_DATA } from "../actions/rate_actions";
 
-const RatesReducer = (oldState = {}, action) => {
+const _base = {
+    base: 'USD',
+    rates: {
+        'USD': 1
+    }
+}
+
+const RatesReducer = (oldState = _base, action) => {
     Object.freeze(oldState);
 
     let newState;
