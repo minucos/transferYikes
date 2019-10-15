@@ -5,7 +5,14 @@ class SendMoneyForm extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = this.props.form;
+        this.state = {
+            name: '',
+            description: '',
+            sent_amount: 0,
+            from_currency: 'USD',
+            to_currency: 'USD',
+            exchange_rate: 1
+        };
 
         this.symbols = {
             "USD": "$",

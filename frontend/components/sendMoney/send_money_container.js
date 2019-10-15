@@ -12,15 +12,7 @@ const mapSTP = state => {
 
     return({
         users: state.entities.users,
-        currentUserId: state.session.id,
-        form: {
-            name: '',
-            description: '',
-            sent_amount: 0,
-            from_currency: from,
-            to_currency: to,
-            exchange_rate: rate
-        }
+        currentUserId: state.session.id
     })
 };
 

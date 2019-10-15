@@ -96,6 +96,8 @@ class ConversionCalculator extends React.Component {
         let { rates, fees, toCurrency, toAmount, fromCurrency, fromAmount } = this.state;
         let { openModal } = this.props;
 
+        console.log(toCurrency);
+        
         return(
             <div className="calculator">
                 <div className="label">You send</div>
@@ -127,7 +129,7 @@ class ConversionCalculator extends React.Component {
                         <li><span>◉</span>{this.symbols[fromCurrency]}{fees} {fromCurrency} Total Fees</li>
                         <li>
                             <span>◉</span>
-                            <span id="rate-amount" onClick={openModal}>{rates[toCurrency].toFixed(5)}</span> 
+                            <span id="rate-amount" onClick={openModal}>{rates[toCurrency]}</span> 
                             <span id="rate-symbol">✓</span> your exchange rate</li>
                     </ul>
                 </div>
