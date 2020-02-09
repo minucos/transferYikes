@@ -1,0 +1,67 @@
+.send-money-form {
+    padding-left: 30px;
+    font-size: 20px;
+
+    .input-box {
+        display: flex;
+        margin-top: 15px;
+
+        label {
+            display: block;
+            height: 33px;
+            width: 200px;
+            line-height: 33px;
+            padding: 0;
+            color: rgb(47,67,105);            
+        }
+
+        input {
+            height: 33px;
+            line-height: 33px;
+            padding: 0 10px;
+            margin: 0;
+            width: 200px;
+            border: 1px solid rgb(211,213,216);
+            font-size: 15px;
+        }
+
+        .currency-dropdown {
+            height: 33px;
+            line-height: 33px;
+            padding: 0 10px;
+            margin: 0;
+            width: 200px;
+            border: 1px solid rgb(211,213,216);
+            font-size: 15px;
+        }
+
+        input::placeholder {
+            font-size: 15px;
+            color: rgb(211,213,216)
+        }
+
+        input:hover {
+            outline: 1px solid rgb(170, 171, 173);
+        }
+
+        input:focus {
+            border: 1px solid rgb(0,185,255);
+            outline: none;
+        }
+    }
+
+    .submit-button {
+        width: 420px;
+        height: 36px;
+        font-size: 20px;
+        color: rgb(255,255,255);
+        background: rgb(46,208,110);
+        border-color: rgb(46,208,110);
+        border-radius: 5px;
+    }
+
+    .submit-button:hover {
+        background: rgb(61, 173, 74);
+        border-color: rgb(61, 173, 74);
+    }
+}

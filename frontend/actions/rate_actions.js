@@ -1,5 +1,4 @@
 import * as RatesAPI from '../utils/rates_API_utils';
-
 export const RECEIVE_RATES = "RECEIVE_RATES";
 export const RECEIVE_HISTORICAL_DATA = "RECEIVE_HISTORICAL_DATA";
 
@@ -29,6 +28,13 @@ const receiveErrors = (errors) => {
 
 export const fetchRates = (base) => dispatch => {
     return RatesAPI.fetchRates(base).then
+        ( payload => dispatch(receiveRates(payload)),
+          errors => dispatch(receiveErrors(errors))  
+        )
+}
+
+export const fetchRate = (from,to) => dispatch => {
+    return RatesAPI.fetchRate(from,to).then
         ( payload => dispatch(receiveRates(payload)),
           errors => dispatch(receiveErrors(errors))  
         )

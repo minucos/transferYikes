@@ -4,8 +4,7 @@
 #
 #  id              :bigint           not null, primary key
 #  email           :string           not null
-#  fname           :string           not null
-#  lname           :string           not null
+#  name           :string           not null
 #  password_digest :string           not null
 #  session_token   :string           not null
 #  created_at      :datetime         not null
@@ -13,7 +12,7 @@
 #
 
 class User < ApplicationRecord
-    validates :email, :session_token, :password_digest, presence: true
+    validates :email, :name, :session_token, :password_digest, presence: true
     validates :email, :session_token, uniqueness: true
     validates :password, length: { minimum: 6, allow_nil: true }
 
@@ -89,7 +88,9 @@ class User < ApplicationRecord
 
     
     def transactions
-        Transaction.where('sender_id = :id OR receiver_id = :id', id: self.id).order('transactions.created_at DESC')
+        Transaction
+            .where('sender_id = :id OR receiver_id = :id', id: self.id)
+            .order('transactions.created_at DESC')
         
         # sent_transactions.concat(received_transactions)
     end
@@ -109,31 +110,19 @@ class User < ApplicationRecord
             balance
         end
     end
-    
-    # def send_money(amount, currency_type, receiving_user)
-    #     raise "funds too low" if self.currency_balance(currency_type) < amount
 
-    #     from_currency = self.currencies.find_by(currency_type: currency_type)
-    #     from_currency.balance -= amount
-    #     receiving_user.receive_money(amount, currency_type)
-    #     from_currency.save!
+    def self.search(search_term, id)
+        if search_term.to_i == 0
+            if search_term != ''
+                return User.where('lower(name) LIKE ?', "%#{search_term.downcase}%")
+                    .or(User.where('lower(email) LIKE ?', "%#{search_term.downcase}%"))
+                    .or(User.where(id: id))
+            end
+            return User.where(id: id)
+        end
 
-    #     return nil
-    # end
-
-    # def receive_money(amount, currency_type)
-    #     to_currency = self.currencies.find_by(currency_type: currency_type)
-
-    #     if to_currency 
-    #         to_currency.balance += amount
-    #         to_currency.save!
-    #         return to_currency.balance 
-    #     else
-    #         to_currency = Currency.new(currency_type: currency_type, balance: amount, wallet_id: self.wallet.id)
-    #         to_currency.save!
-    #         return to_currency.balance
-    #     end
-    # end
+        User.where(id: search_term).or(User.where(id: id))
+    end
 end
 
 

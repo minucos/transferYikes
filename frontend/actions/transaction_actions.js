@@ -2,6 +2,7 @@ import * as TransAPI from '../utils/transaction_API_utils';
 
 export const RECEIVE_ALL_TRANSACTIONS = 'RECEIVE_ALL_TRANSACTIONS';
 export const RECEIVE_TRANSACTION = 'RECEIVE_TRANSACTION';
+export const CLEAR_TRANSACTIONS = "CLEAR_TRANSACTIONS";
 export const RECEIVE_TRANSACTION_ERRORS = 'RECEIVE_TRANSACTION_ERRORS';
 
 const receiveAllTransactions = ({ transactions, users }) => ({
@@ -10,10 +11,18 @@ const receiveAllTransactions = ({ transactions, users }) => ({
     users
 });
 
-const receiveTransaction = (transaction) => ({
-    type: RECEIVE_TRANSACTION,
-    transaction
-});
+const receiveTransaction = ({transaction, users}) => {
+    return({
+        type: RECEIVE_TRANSACTION,
+        transaction,
+        users
+    });
+}
+
+export const clearTransactions = (id) => ({
+    type: CLEAR_TRANSACTIONS,
+    id
+})
 
 const receiveErrors = (errors) => ({
     type: RECEIVE_TRANSACTION_ERRORS,
@@ -35,7 +44,7 @@ export const fetchAllTransactions = () => (dispatch) => {
 };
 export const createTransaction = (transaction) => (dispatch) => {
     return TransAPI.createTransaction(transaction).then(
-        transaction => dispatch(receiveTransaction(transaction)),
+        payload => dispatch(receiveTransaction(payload)),
         errors => dispatch(receiveErrors(errors))
     );
 };

@@ -6,6 +6,7 @@ import FeatureIndexContainer from './feature_index_container';
 import BalanceContainer from './balance_container';
 import ActivitiesIndexContainer from './activities_index_container';
 import RecipientsContainer from './recipients_container';
+import SendMoneyContainer from '../sendMoney/send_money_container';
 
 class Dashboard extends React.Component {
 
@@ -28,7 +29,7 @@ class Dashboard extends React.Component {
                     <div className="navbar">
                         <div className="heading">{heading}</div>
                         <div className="dropdown-button">
-                            <div>{`${user.fname} ${user.lname} `}
+                            <div>{`${user.name}`}
                                 <FontAwesomeIcon
                                     className='logout-icon'
                                     icon={faChevronDown}
@@ -46,6 +47,7 @@ class Dashboard extends React.Component {
                         </div>
                     </div>
                     <Switch>
+                        <Route path='/activity/send' component={SendMoneyContainer} />
                         <Route path='/activity' component={ActivitiesIndexContainer} />
                         <Route path='/balances' component={BalanceContainer} />
                         <Route path='/recipients' component={RecipientsContainer} />

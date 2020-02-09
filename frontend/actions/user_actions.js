@@ -26,6 +26,13 @@ export const fetchUser = (userId) => dispatch => {
         )
 }
 
+export const searchUsers = (searchTerm) => dispatch => {
+    return userAPIUtils.searchUsers(searchTerm).then(
+        users => dispatch(receiveUsers(users)),
+        errors => dispatch(receiveErrors(errors))
+    )
+}
+
 export const fetchRecipients = () => dispatch => {
     return userAPIUtils.fetchRecipients().then(
         users => dispatch(receiveUsers(users)),

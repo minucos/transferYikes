@@ -17,6 +17,13 @@ export const fetchRates = (base) => {
     })
 };
 
+export const fetchRate = (from, to) => {
+    return $.ajax({
+        method: "GET",
+        url: `https://api.exchangeratesapi.io/latest?base=${from}&symbols=${to}`
+    })
+}
+
 export const fetchHistoricalData = (from, to) => {
     const currDate = new Date();
     const pastDate = new Date(new Date().setDate(new Date().getDate() - 30));

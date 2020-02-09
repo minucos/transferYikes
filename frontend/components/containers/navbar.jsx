@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 // import { AuthRoute } from '../../utils/route_util';
 
 class NavBar extends React.Component {
+    componentDidMount() {
+        if (this.props.currentUserId) {
+            this.props.fetchCurrentUser(this.props.currentUserId)
+        }
+    }
+
     render() {
         let { currentUser, logout } = this.props;
 
@@ -14,7 +20,7 @@ class NavBar extends React.Component {
 
         let loggedIn = () => (
             <div className="rightbar">
-                <div className="welcome">Welcome, {currentUser.fname}!</div>
+                <div className="welcome">Welcome, {currentUser.name}!</div>
                 <a className="button" onClick={logout}>Log out</a>
             </div>
         )

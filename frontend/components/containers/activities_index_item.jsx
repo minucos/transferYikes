@@ -7,7 +7,7 @@ const ActivitiesIndexItem = (props) => {
     let date = new Date(t.created_at);
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    date = `${date.getDate()} ${months[date.getMonth() - 1]} ${date.getFullYear()}`;
+    date = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
 
     if (currentUser.id === t.sender_id && currentUser.id === t.receiver_id) {
 
@@ -38,7 +38,7 @@ const ActivitiesIndexItem = (props) => {
             </li>
         )
     } else if (currentUser.id === t.sender_id) {
-        let receiver = `${users[t.receiver_id].fname} ${users[t.receiver_id].lname}`;
+        let receiver = `${users[t.receiver_id].name}`;
 
         return (
             <li className='activity-index-item'>
@@ -68,7 +68,7 @@ const ActivitiesIndexItem = (props) => {
         )
     } else {
 
-        let sender = `${users[t.sender_id].fname} ${users[t.sender_id].lname}`;
+        let sender = `${users[t.sender_id].name}`;
         
         return (
             <li className='activity-index-item'>

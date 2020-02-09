@@ -19,6 +19,10 @@ class ActivitiesIndex extends React.Component {
             .then(() => fetchUser(currentUserId));
     }
 
+    componentWillUnmount() {
+        this.props.clearTransactions(this.props.currentUserId);
+    }
+
     updatePage(page) {
         let { fetchTransactions } = this.props;
         let totalTrans = this.props.currentUser.num_trans;
@@ -71,13 +75,13 @@ class ActivitiesIndex extends React.Component {
     }
 
     render() {
-        let { currentUser, users } = this.props;
+        let { currentUser, users, transactions } = this.props;
         let { page } = this.state;
         let totalTrans = currentUser.num_trans;
 
-        if (users === undefined || currentUser === undefined) return null;
-
-        const transactions = this.props.transactions.map( transaction => {
+        if (transactions.length === 0) return null;
+        console.log(this.state.page);
+        const transactionsList = transactions.map( transaction => {
            return(
                 <ActivitiesIndexItem
                     key={transaction.id}
@@ -94,7 +98,7 @@ class ActivitiesIndex extends React.Component {
                 <div className='activity-detail'>
                     <h1>History</h1>
                     <ul className='activity-list'>
-                        {transactions.reverse()}
+                        {transactionsList.reverse()}
                     </ul>
                    {this.pageIcons(page, totalTrans)}
                 </div>

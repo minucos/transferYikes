@@ -4,12 +4,12 @@ class Recipients extends React.Component {
     componentDidMount() {
         this.props.fetchRecipients();
     }
-
+    
     render() {
         
         let recipients = this.props.recipients.map( recipient => {
             return(
-                <li>{recipient.fname} {recipient.lname}</li>
+                <li>{recipient.name}</li>
             )
         })
         return(

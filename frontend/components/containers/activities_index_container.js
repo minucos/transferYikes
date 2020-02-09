@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { fetchTransactions } from '../../actions/transaction_actions';
+import { fetchTransactions, clearTransactions } from '../../actions/transaction_actions';
 import ActivitiesIndex from './activities_index';
 import { sortTransactions } from '../../reducers/selectors';
 import { fetchUser } from '../../actions/user_actions';
@@ -17,6 +17,7 @@ const mapSTP = (state) => {
 
 const mspDTP = (dispatch) => ({
     fetchTransactions: (page) => dispatch(fetchTransactions(page)),
+    clearTransactions: (id) => dispatch(clearTransactions(id)),
     fetchUser: (id) => dispatch(fetchUser(id))
 });
 
