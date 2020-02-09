@@ -17,6 +17,7 @@ class User < ApplicationRecord
     validates :password, length: { minimum: 6, allow_nil: true }
 
     after_initialize :ensure_session_token
+    after_create :deposit_money
 
     attr_reader :password
 
@@ -122,6 +123,19 @@ class User < ApplicationRecord
         end
 
         User.where(id: search_term).or(User.where(id: id))
+    end
+
+    def deposit_money
+        bank = User.find_by({ email: "vault@transferyikes.com" })
+        Transaction.create!({
+            name: "Deposit",
+            sent_amount: 100000,
+            from_currency: "USD",
+            to_currency: "USD",
+            sender_id: bank.id,
+            receiver_id: self.id,
+            exchange_rate: 1
+        })
     end
 end
 

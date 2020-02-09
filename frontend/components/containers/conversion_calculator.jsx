@@ -59,7 +59,7 @@ class ConversionCalculator extends React.Component {
         if (field === "toCurrency") {
 
             return (e) => {
-                let { rates, toCurrency } = this.state;
+                let { rates } = this.props;
                 let rate = rates[e.target.value];
                 this.setState({
                     [field]: e.target.value,
