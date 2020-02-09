@@ -118,7 +118,7 @@ var closeModal = function closeModal() {
 /*!******************************************!*\
   !*** ./frontend/actions/rate_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_RATES, RECEIVE_HISTORICAL_DATA, fetchRates, fetchHistoricalData */
+/*! exports provided: RECEIVE_RATES, RECEIVE_HISTORICAL_DATA, fetchRates, fetchRate, fetchHistoricalData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -126,6 +126,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_RATES", function() { return RECEIVE_RATES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_HISTORICAL_DATA", function() { return RECEIVE_HISTORICAL_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRates", function() { return fetchRates; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchRate", function() { return fetchRate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchHistoricalData", function() { return fetchHistoricalData; });
 /* harmony import */ var _utils_rates_API_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/rates_API_utils */ "./frontend/utils/rates_API_utils.js");
 
@@ -156,6 +157,15 @@ var receiveErrors = function receiveErrors(errors) {
 var fetchRates = function fetchRates(base) {
   return function (dispatch) {
     return _utils_rates_API_utils__WEBPACK_IMPORTED_MODULE_0__["fetchRates"](base).then(function (payload) {
+      return dispatch(receiveRates(payload));
+    }, function (errors) {
+      return dispatch(receiveErrors(errors));
+    });
+  };
+};
+var fetchRate = function fetchRate(from, to) {
+  return function (dispatch) {
+    return _utils_rates_API_utils__WEBPACK_IMPORTED_MODULE_0__["fetchRate"](from, to).then(function (payload) {
       return dispatch(receiveRates(payload));
     }, function (errors) {
       return dispatch(receiveErrors(errors));
@@ -2608,10 +2618,14 @@ __webpack_require__.r(__webpack_exports__);
 var mapSTP = function mapSTP(state) {
   var from = state.entities.rates.base;
   var to = Object.keys(state.entities.rates.rates)[0];
-  var rate = Object.values(state.entities.rates.rates)[0];
+  var rate = Object.values(state.entities.rates.rates)[0]; // debugger
+
   return {
     users: state.entities.users,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
+    from: from,
+    to: to,
+    rate: rate
   };
 };
 
@@ -2687,8 +2701,7 @@ function (_React$Component) {
       description: '',
       sent_amount: 0,
       from_currency: 'USD',
-      to_currency: 'USD',
-      exchange_rate: 1
+      to_currency: 'USD'
     };
     _this.symbols = {
       "USD": "$",
@@ -2706,6 +2719,19 @@ function (_React$Component) {
   }
 
   _createClass(SendMoneyForm, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      var _this$state = this.state,
+          to_currency = _this$state.to_currency,
+          from_currency = _this$state.from_currency;
+      var prev_to_currency = prevState.prev_to_currency,
+          prev_from_currency = prevState.prev_from_currency;
+
+      if (prev_from_currency !== from_currency || prev_to_currency !== to_currency) {
+        this.props.fetchRate(from_currency, to_currency);
+      }
+    }
+  }, {
     key: "handleInput",
     value: function handleInput(type) {
       var _this2 = this;
@@ -2744,7 +2770,9 @@ function (_React$Component) {
       var _this4 = this;
 
       e.preventDefault();
-      this.props.createTransaction(this.state).then(function () {
+      var transaction = this.state;
+      transaction['exchange_rate'] = this.props.rate;
+      this.props.createTransaction(transaction).then(function () {
         return _this4.props.history.push('/activity');
       });
     }
@@ -2755,16 +2783,14 @@ function (_React$Component) {
 
       var _this$props = this.props,
           currentUserId = _this$props.currentUserId,
-          users = _this$props.users;
-      var _this$state = this.state,
-          name = _this$state.name,
-          description = _this$state.description,
-          from_currency = _this$state.from_currency,
-          to_currency = _this$state.to_currency,
-          sent_amount = _this$state.sent_amount,
-          exchange_rate = _this$state.exchange_rate,
-          receiver_id = _this$state.receiver_id,
-          receiverName = _this$state.receiverName;
+          users = _this$props.users,
+          rate = _this$props.rate;
+      var _this$state2 = this.state,
+          name = _this$state2.name,
+          description = _this$state2.description,
+          sent_amount = _this$state2.sent_amount,
+          receiver_id = _this$state2.receiver_id,
+          receiverName = _this$state2.receiverName;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "send-money-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_userSearch_user_search__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -2797,19 +2823,47 @@ function (_React$Component) {
         onChange: this.handleInput('sent_amount')
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-box"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "From:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        value: from_currency,
-        onChange: this.handleInput('from_currency')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "From:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "currency-dropdown",
+        id: "from-dropdown",
+        onChange: this.handleInput("from_currency")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "USD"
+      }, "\uD83C\uDDFA\uD83C\uDDF8 USD"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "AUD"
+      }, "\uD83C\uDDE6\uD83C\uDDFA AUD"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "GBP"
+      }, "\uD83C\uDDEC\uD83C\uDDE7 GBP"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "EUR"
+      }, "\uD83C\uDDEA\uD83C\uDDFA EUR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "CAD"
+      }, "\uD83C\uDDE8\uD83C\uDDE6 CAD"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "CNY"
+      }, "\uD83C\uDDE8\uD83C\uDDF3 CNY"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "JPY"
+      }, "\uD83C\uDDEF\uD83C\uDDF5 JPY"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-box"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "To:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        value: to_currency,
-        onChange: this.handleInput('to_currency')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "To:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "currency-dropdown",
+        id: "to-dropdown",
+        onChange: this.handleInput("to_currency")
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "USD"
+      }, "\uD83C\uDDFA\uD83C\uDDF8 USD"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "AUD"
+      }, "\uD83C\uDDE6\uD83C\uDDFA AUD"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "GBP"
+      }, "\uD83C\uDDEC\uD83C\uDDE7 GBP"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "EUR"
+      }, "\uD83C\uDDEA\uD83C\uDDFA EUR"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "CAD"
+      }, "\uD83C\uDDE8\uD83C\uDDE6 CAD"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "CNY"
+      }, "\uD83C\uDDE8\uD83C\uDDF3 CNY"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "JPY"
+      }, "\uD83C\uDDEF\uD83C\uDDF5 JPY"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-box"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Exchange Rate:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, exchange_rate)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Exchange Rate:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, rate)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "input-box"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Receiver:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, receiverName)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "submit-button",
@@ -75644,7 +75698,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

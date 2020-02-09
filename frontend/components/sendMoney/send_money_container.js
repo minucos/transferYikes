@@ -9,10 +9,13 @@ const mapSTP = state => {
     const from = state.entities.rates.base;
     const to = Object.keys(state.entities.rates.rates)[0];
     const rate = Object.values(state.entities.rates.rates)[0]
-
+    // debugger
     return({
         users: state.entities.users,
-        currentUserId: state.session.id
+        currentUserId: state.session.id,
+        from,
+        to,
+        rate
     })
 };
 

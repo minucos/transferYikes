@@ -10,8 +10,7 @@ class SendMoneyForm extends React.Component {
             description: '',
             sent_amount: 0,
             from_currency: 'USD',
-            to_currency: 'USD',
-            exchange_rate: 1
+            to_currency: 'USD'
         };
 
         this.symbols = {
@@ -27,6 +26,14 @@ class SendMoneyForm extends React.Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.handleClick = this.handleClick.bind(this);
+    }
+
+    componentDidUpdate(prevProps,prevState) {
+        let { to_currency, from_currency} = this.state;
+        let { prev_to_currency, prev_from_currency} = prevState;
+        if (prev_from_currency !== from_currency || prev_to_currency !== to_currency) {
+            this.props.fetchRate(from_currency,to_currency);
+        }
     }
 
     handleInput(type) {
@@ -56,14 +63,15 @@ class SendMoneyForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-
-        this.props.createTransaction(this.state)
+        let transaction = this.state;
+        transaction['exchange_rate'] = this.props.rate;
+        this.props.createTransaction(transaction)
             .then(() => this.props.history.push('/activity'));
     }
     
     render() {
-        const { currentUserId, users } = this.props;
-        const { name, description, from_currency, to_currency, sent_amount, exchange_rate, receiver_id, receiverName } = this.state;
+        const { currentUserId, users, rate } = this.props;
+        const { name, description, sent_amount, receiver_id, receiverName } = this.state;
          
         return(
             <div className='send-money-container'>
@@ -88,15 +96,39 @@ class SendMoneyForm extends React.Component {
                     </div>
                     <div className='input-box'>
                         <label>From:</label>
-                        <input type="text" value={from_currency} onChange={this.handleInput('from_currency')}/>
+                        <select
+                            className="currency-dropdown"
+                            id="from-dropdown"
+                            onChange={this.handleInput("from_currency")}
+                        >
+                            <option value="USD">🇺🇸 USD</option>
+                            <option value="AUD">🇦🇺 AUD</option>
+                            <option value="GBP">🇬🇧 GBP</option>
+                            <option value="EUR">🇪🇺 EUR</option>
+                            <option value="CAD">🇨🇦 CAD</option>
+                            <option value="CNY">🇨🇳 CNY</option>
+                            <option value="JPY">🇯🇵 JPY</option>
+                        </select>
                     </div>
                     <div className='input-box'>
                         <label>To:</label>
-                        <input type="text" value={to_currency} onChange={this.handleInput('to_currency')}/>
+                        <select
+                            className="currency-dropdown"
+                            id="to-dropdown"
+                            onChange={this.handleInput("to_currency")}
+                        >
+                            <option value="USD">🇺🇸 USD</option>
+                            <option value="AUD">🇦🇺 AUD</option>
+                            <option value="GBP">🇬🇧 GBP</option>
+                            <option value="EUR">🇪🇺 EUR</option>
+                            <option value="CAD">🇨🇦 CAD</option>
+                            <option value="CNY">🇨🇳 CNY</option>
+                            <option value="JPY">🇯🇵 JPY</option>
+                        </select>
                     </div>
                     <div className='input-box'>
                         <label>Exchange Rate:</label>
-                        <label>{exchange_rate}</label>
+                        <label>{rate}</label>
                     </div>
                     <div className="input-box">
                         <label>Receiver:</label>

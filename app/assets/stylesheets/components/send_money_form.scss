@@ -25,6 +25,16 @@
             font-size: 15px;
         }
 
+        .currency-dropdown {
+            height: 33px;
+            line-height: 33px;
+            padding: 0 10px;
+            margin: 0;
+            width: 200px;
+            border: 1px solid rgb(211,213,216);
+            font-size: 15px;
+        }
+
         input::placeholder {
             font-size: 15px;
             color: rgb(211,213,216)
