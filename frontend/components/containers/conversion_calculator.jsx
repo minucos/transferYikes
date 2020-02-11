@@ -8,7 +8,7 @@ class ConversionCalculator extends React.Component {
             toAmount: 0,
             fromCurrency: "USD",
             fromAmount: 0,
-            rates: { "USD": 1 },
+            // rates: { "USD": 1 },
             fees: 0.00
         }
 
@@ -30,28 +30,24 @@ class ConversionCalculator extends React.Component {
     }
 
     updateAmount(field) {
-        if (field == "toAmount") {
-            let { rates, toCurrency } = this.state;
-            let rate = rates[toCurrency];
+        let { toCurrency } = this.state;
+        let { rates } = this.props;
+        let rate = rates[toCurrency];
 
+        if (field == "toAmount") {
             return (e) => {
                 this.setState({
                     [field]: e.target.value,
                     fromAmount: (e.target.value / rate)
-                })
-                
+                })   
             }
         }
-
-        let { rates, toCurrency } = this.state;
-        let rate = rates[toCurrency];
 
         return (e) => {
             this.setState({
                 [field]: e.target.value,
                 toAmount: (e.target.value * rate)
             })
-
         }        
     };
 
@@ -93,8 +89,8 @@ class ConversionCalculator extends React.Component {
     }
 
     render() {
-        let { rates, fees, toCurrency, toAmount, fromCurrency, fromAmount } = this.state;
-        let { openModal } = this.props;
+        let { fees, toCurrency, toAmount, fromCurrency, fromAmount } = this.state;
+        let { openModal, rates } = this.props;
 
         console.log(toCurrency);
         
@@ -129,7 +125,7 @@ class ConversionCalculator extends React.Component {
                         <li><span>◉</span>{this.symbols[fromCurrency]}{fees} {fromCurrency} Total Fees</li>
                         <li>
                             <span>◉</span>
-                            <span id="rate-amount" onClick={openModal}>{rates[toCurrency]}</span> 
+                            <span id="rate-amount" onClick={openModal}>{parseFloat(rates[toCurrency]).toFixed(5)}</span> 
                             <span id="rate-symbol">✓</span> your exchange rate</li>
                     </ul>
                 </div>
