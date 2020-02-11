@@ -25,7 +25,7 @@ class Balance extends React.Component {
         
         // ['USD', 'AUD', 'GBP', 'EUR', 'CAD', 'CNY', 'JPY', 'XBT']
         return (
-            <div className="wallet-container">
+            <div className="balance-container">
                 <BalancesBar 
                     userId={this.props.userId}
                     selectedCurrency={this.state.selectedCurrency} 

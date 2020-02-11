@@ -36,7 +36,7 @@ class BalancesBar extends React.Component {
     
     walletBar() {
         return (
-            <div className="wallet-bar-container">
+            <div className="balance-bar-container">
                 <div className="add-cash">
                     <form className="add-cash-form" onSubmit={this.handleSubmit}>
                         <select 

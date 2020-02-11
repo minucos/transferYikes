@@ -1,6 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const symbols = {
+    "USD": "$",
+    "AUD": "$",
+    "GBP": "£",
+    "EUR": "€",
+    "CAD": "$",
+    "CNY": "¥",
+    "JPY": "¥",
+    "XBT": "₿"
+};
+
 const CurrenciesIndex = (props) => {
 
     if (!props.balances) {
@@ -8,17 +19,6 @@ const CurrenciesIndex = (props) => {
     }
 
     let balances = Object.keys(props.balances).map( currency => {
-        const symbols = {
-            "USD": "$",
-            "AUD": "$",
-            "GBP": "£",
-            "EUR": "€",
-            "CAD": "$",
-            "CNY": "¥",
-            "JPY": "¥",
-            "XBT": "₿"
-        }
-
         const balance = props.balances[currency].toFixed(2);
         const symbol = symbols[currency];
 
@@ -26,11 +26,17 @@ const CurrenciesIndex = (props) => {
 
         return (
             <tr key={currency} className="currencies-table-row">
-                <td>{currency} ( {symbol} )</td>
+                <td>
+                    <img 
+                        className="flag" 
+                        src={window[currency]} 
+                        alt="flag"
+                    />
+                    <span>{currency} ( {symbol} )</span>
+                </td>
                 <td className='balances'>{balance}</td>
                 <td>
                     <button>Send</button>
-                    <button>Convert</button>
                 </td>
             </tr>
         )
