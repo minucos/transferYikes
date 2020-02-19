@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/Root';
 
-// TESTING
-// END TESTING
-
 document.addEventListener('DOMContentLoaded', () => {
     let preloadedState = {};
 
@@ -27,8 +24,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     delete window.currentUser
     
-    // TESTING
-    // END TESTING
-
     ReactDOM.render(<Root store={store} />, root)
 })
