@@ -12,6 +12,9 @@ ActiveRecord::Base.transaction do
     Transaction.destroy_all
     User.destroy_all
 
+    # used for deposits/withdrawals
+    bank = User.create!(email:"vault@transferyikes.com", name: "Scrooge McDuck", password: "no1dime")
+
     # demo user
     toby = User.create!(email:"toby@gmail.com", name: "Toby Dundridge", password: "password")
     
@@ -34,9 +37,6 @@ ActiveRecord::Base.transaction do
         { email:"walker@aa.io", name: "Sam Walker", password: "password"},
         { email:"darren@aa.io", name: "Darren Eid", password: "password"}
     ])
-
-    # used for deposits/withdrawals
-    bank = User.create!(email:"vault@transferyikes.com", name: "Scrooge McDuck", password: "no1dime")
 
     # transactions
     # initial deposits
