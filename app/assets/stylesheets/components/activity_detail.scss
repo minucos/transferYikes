@@ -1,27 +1,23 @@
 .activity-container {
 
     h1 {
-        padding: 30px 0 20px 0;
+        padding: 20px 30px;
         color: rgb(46,67,105);
+        font-size: 20px;
+        font-weight: 600;
     }
 
-    .activity-detail {
-        padding: 0px 30px;
-
-        .activity-list {
-
-        }
-
+    .activity-detail {   
         .activity-pages {
             display: flex;
             color: rgb(46,67,105);
-
+            
             div {
                 padding: 0 5px;
                 height: 30px;
                 line-height: 30px;
             }
-
+            
             .update-pages:hover {
                 cursor: pointer;
             }
@@ -32,6 +28,7 @@
 .activity-index-item {
     display: flex;
     justify-content: space-between;
+    padding: 0px 30px;
     border-top: 1px solid rgb(226,230,232);
     height: 100px;
     color: rgb(46,67,105);

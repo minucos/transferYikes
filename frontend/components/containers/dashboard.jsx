@@ -28,21 +28,16 @@ class Dashboard extends React.Component {
                 <div className="detail-container">
                     <div className="navbar">
                         <div className="heading">{heading}</div>
-                        <div className="dropdown-button">
-                            <div>{`${user.name}`}
-                                <FontAwesomeIcon
-                                    className='logout-icon'
-                                    icon={faChevronDown}
-                                />
+                        <div className="info">
+                            <div>
+                                Welcome, {`${user.name}`}
                             </div>
-                            <div className='dropdown-content'>
-                                <div onClick={logout} className='logout-button'>
-                                    <FontAwesomeIcon 
-                                        className='logout-icon'
-                                        icon={faSignOutAlt}
-                                    />
-                                    Log out
-                                </div>
+                            <div onClick={logout} className='logout-button'>
+                                <FontAwesomeIcon 
+                                    className='logout-icon'
+                                    icon={faSignOutAlt}
+                                />
+                                Log out
                             </div>
                         </div>
                     </div>

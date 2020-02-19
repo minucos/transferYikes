@@ -1,6 +1,17 @@
-import { RECEIVE_CURRENT_USER, LOGOUT_CURRENT_USER } from "../actions/session_actions";
-import { RECEIVE_USER, RECEIVE_USERS } from '../actions/user_actions';
-import { RECEIVE_ALL_TRANSACTIONS, RECEIVE_TRANSACTION, CLEAR_TRANSACTIONS } from "../actions/transaction_actions";
+import { 
+    RECEIVE_CURRENT_USER,
+    LOGOUT_CURRENT_USER 
+} from "../actions/session_actions";
+import { 
+    RECEIVE_USER,
+    RECEIVE_USERS,
+    CLEAR_USERS } 
+from '../actions/user_actions';
+import { 
+    RECEIVE_ALL_TRANSACTIONS,
+    RECEIVE_TRANSACTION,
+    CLEAR_TRANSACTIONS 
+} from "../actions/transaction_actions";
 
 const UsersReducer = (oldState = {}, action) => {
     Object.freeze(oldState);

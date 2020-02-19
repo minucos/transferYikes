@@ -26,17 +26,25 @@ const CurrenciesIndex = (props) => {
 
         return (
             <tr key={currency} className="currencies-table-row">
-                <td>
+                <td className="balance-flag">
                     <img 
                         className="flag" 
                         src={window[currency]} 
                         alt="flag"
                     />
-                    <span>{currency} ( {symbol} )</span>
                 </td>
-                <td className='balances'>{balance}</td>
-                <td>
-                    <button>Send</button>
+                <td className="balance-currency">
+                    {currency} ( {symbol} )
+                </td>
+                <td className='balance-amount'>
+                    {balance}
+                </td>
+                <td className="balance-send">
+                    <Link to='/activity/send'>
+                        <button onClick={() => props.selectCurrency(currency)}>
+                            Send
+                        </button>
+                    </Link>
                 </td>
             </tr>
         )
@@ -48,6 +56,7 @@ const CurrenciesIndex = (props) => {
             <table className="currencies-table">
                 <thead className="currencies-table-heading">
                     <tr className="heading-row">
+                        <th></th>
                         <th className="heading-currency">Currency</th>
                         <th className="heading-balance">Balance</th>
                         <th> </th>

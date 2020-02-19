@@ -80,7 +80,6 @@ class SessionForm extends React.Component {
             <div className="session-page">
                 <div className="session-left">
                     <img src={window.transamerica} alt="photo"/>
-                    {/* <img src={this.images[Math.floor(Math.random() * 5)]} alt="photo"/> */}
                 </div>
                 <div className="session-right">
                     <div className="session-right-logo">

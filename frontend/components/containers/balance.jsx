@@ -21,18 +21,18 @@ class Balance extends React.Component {
     }
 
     render() {
-        let { depositTransaction, balances } = this.props;
+        let { depositTransaction, balances, selectCurrency } = this.props;
         
-        // ['USD', 'AUD', 'GBP', 'EUR', 'CAD', 'CNY', 'JPY', 'XBT']
         return (
             <div className="balance-container">
                 <BalancesBar 
                     userId={this.props.userId}
                     selectedCurrency={this.state.selectedCurrency} 
                     depositTransaction={depositTransaction}
-                />
+                    />
                 <CurrenciesIndex 
                     balances={balances}
+                    selectCurrency={selectCurrency}
                 />
             </div>
         )

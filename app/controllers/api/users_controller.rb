@@ -24,8 +24,8 @@ class Api::UsersController < ApplicationController
     end
 
     def recipients
-        @recipients = User.find(current_user.id).receivers.where.not(id: current_user.id).uniq;
-        @recipients += User.where(id: current_user.id);
+        @recipients = User.find(current_user.id)
+            .receivers.where.not(id: current_user.id).uniq;
 
         render :recipients
     end

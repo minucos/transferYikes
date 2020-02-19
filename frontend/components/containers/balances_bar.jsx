@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 class BalancesBar extends React.Component {
     
@@ -18,7 +17,7 @@ class BalancesBar extends React.Component {
     
     handleSubmit(e) {
         e.preventDefault();
-        const AMOUNTS = { USD: 1000, AUD: 1000, GBP: 500, XBT: 1, EUR: 1000, CAD: 1000, JPY: 100000, CNY: 10000 };
+        const AMOUNTS = { USD: 1000, AUD: 1000, GBP: 500, EUR: 1000, CAD: 1000, JPY: 100000, CNY: 10000 };
         let currency = this.state.selectedCurrency;
 
         let amount = AMOUNTS[currency];
@@ -32,6 +31,7 @@ class BalancesBar extends React.Component {
         }
 
         this.props.depositTransaction(transaction)
+            .then()
     };
     
     walletBar() {
@@ -46,7 +46,6 @@ class BalancesBar extends React.Component {
                         >
                             <option value="USD">USD $1000</option>
                             <option value="AUD">AUD $1000</option>
-                            <option value="XBT">XBT ₿1</option>
                             <option value="EUR">EUR €1000</option>
                             <option value="CNY">CNY ¥10000</option>
                             <option value="GBP">GBP £1000</option>

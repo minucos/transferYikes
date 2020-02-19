@@ -4,7 +4,6 @@ import configureStore from './store/store';
 import Root from './components/Root';
 
 // TESTING
-
 // END TESTING
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -29,8 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     delete window.currentUser
     
     // TESTING
-    window.store = store;
-    window.dispatch = store.dispatch;
     // END TESTING
 
     ReactDOM.render(<Root store={store} />, root)

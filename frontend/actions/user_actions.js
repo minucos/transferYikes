@@ -14,6 +14,7 @@ const receiveUsers = (users) => ({
     users
 })
 
+
 const receiveErrors = errors => ({
     type: RECEIVE_USER_ERRORS,
     errors: errors

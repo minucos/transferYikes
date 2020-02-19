@@ -34,7 +34,7 @@ class Api::TransactionsController < ApplicationController
         @transaction.fund_deposit(current_user.id)
 
         if @transaction.save
-            render json: @transaction
+            render :show
         else
             render json: @transaction.errors.full_messages
         end

@@ -9,8 +9,8 @@ class SendMoneyForm extends React.Component {
             name: '',
             description: '',
             sent_amount: 0,
-            from_currency: 'USD',
-            to_currency: 'USD'
+            from_currency: this.props.currency,
+            to_currency: this.props.currency
         };
 
         this.symbols = {
@@ -23,9 +23,30 @@ class SendMoneyForm extends React.Component {
             "JPY": "¥"
         }
 
+        this.flags = {
+            "USD": '🇺🇸 USD',
+            "AUD": "🇦🇺 AUD",
+            "GBP": "🇬🇧 GBP",
+            "EUR": "🇪🇺 EUR",
+            "CAD": "🇨🇦 CAD",
+            "CNY": "🇨🇳 CNY",
+            "JPY": "🇯🇵 JPY"
+        }
+
         this.handleSearch = this.handleSearch.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.handleClick = this.handleClick.bind(this);
+    }
+
+    componentDidMount() {
+        let { currency, receiver, users } = this.props;
+
+        if (receiver) {
+            this.setState({
+                ['receiver_id']: receiver,
+                receiverName: users[receiver].name
+            })
+        }
     }
 
     componentDidUpdate(prevProps,prevState) {
@@ -34,6 +55,10 @@ class SendMoneyForm extends React.Component {
         if (prev_from_currency !== from_currency || prev_to_currency !== to_currency) {
             this.props.fetchRate(from_currency,to_currency);
         }
+    }
+
+    componentWillUnmount() {
+        this.props.clearSelections();
     }
 
     handleInput(type) {
@@ -57,8 +82,21 @@ class SendMoneyForm extends React.Component {
         }
     }
     
-    handleSearch(e) {
-        this.props.searchUsers(e.target.value);
+    handleSearch(searchTerm) {
+        this.props.searchUsers(searchTerm);
+    }
+
+    buildDropdown(type) {
+        let { symbols, flags } = this;
+        
+        return Object.keys(symbols).map( currency => (
+            <option
+                key={currency}
+                value={currency}
+            >
+                {flags[currency]}
+            </option>
+        ))
     }
 
     handleSubmit(e) {
@@ -71,7 +109,14 @@ class SendMoneyForm extends React.Component {
     
     render() {
         const { currentUserId, users, rate } = this.props;
-        const { name, description, sent_amount, receiver_id, receiverName } = this.state;
+        const { name, 
+            description, 
+            sent_amount, 
+            receiver_id, 
+            receiverName, 
+            to_currency, 
+            from_currency 
+        } = this.state;
          
         return(
             <div className='send-money-container'>
@@ -100,14 +145,9 @@ class SendMoneyForm extends React.Component {
                             className="currency-dropdown"
                             id="from-dropdown"
                             onChange={this.handleInput("from_currency")}
+                            defaultValue={from_currency}
                         >
-                            <option value="USD">🇺🇸 USD</option>
-                            <option value="AUD">🇦🇺 AUD</option>
-                            <option value="GBP">🇬🇧 GBP</option>
-                            <option value="EUR">🇪🇺 EUR</option>
-                            <option value="CAD">🇨🇦 CAD</option>
-                            <option value="CNY">🇨🇳 CNY</option>
-                            <option value="JPY">🇯🇵 JPY</option>
+                            {this.buildDropdown('from_currency')}
                         </select>
                     </div>
                     <div className='input-box'>
@@ -116,14 +156,9 @@ class SendMoneyForm extends React.Component {
                             className="currency-dropdown"
                             id="to-dropdown"
                             onChange={this.handleInput("to_currency")}
+                            defaultValue={to_currency}
                         >
-                            <option value="USD">🇺🇸 USD</option>
-                            <option value="AUD">🇦🇺 AUD</option>
-                            <option value="GBP">🇬🇧 GBP</option>
-                            <option value="EUR">🇪🇺 EUR</option>
-                            <option value="CAD">🇨🇦 CAD</option>
-                            <option value="CNY">🇨🇳 CNY</option>
-                            <option value="JPY">🇯🇵 JPY</option>
+                            {this.buildDropdown('to_currency')}
                         </select>
                     </div>
                     <div className='input-box'>
@@ -142,10 +177,3 @@ class SendMoneyForm extends React.Component {
 };
 
 export default SendMoneyForm;
-
-// name: '',
-//     description: '',
-//         sent_amount: 0,
-//             from_currency: 'USD',
-//                 to_currency: 'USD',
-//                     exchange_rate: 1

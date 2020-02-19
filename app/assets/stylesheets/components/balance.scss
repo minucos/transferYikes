@@ -1,9 +1,7 @@
 .balance-bar-container {
-
     .add-cash {
         display: flex;
         padding: 10px 50px;
-        width: 100%;     
         border-bottom: 1px solid rgb(226,230,232);
         font-size: 15px;
         background: rgb(255,255,255);
@@ -43,33 +41,70 @@
 }
 
 .currencies-index {
-    margin-left: 50px;
-    margin-top: 50px;
-    width: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // padding: 30px;
 
     .currencies-table {
-        font-size: 20px;
-        width: 100%;
+        padding: 30px;
+        width: calc(100% - 60px);
+        color: rgb(46,67,105);
 
         tr {
-            height: 30px;
+            height: 60px;
+            border-top: 1px solid rgb(226,230,232);
 
-            th, td {
-                border: 1px solid rgb(150,150,150);
+            th {
                 text-align: center;
+                font-size: 25px;
             }
 
-            .balances {
-                text-align: right;
-                padding-right: 20px;
-                width: 230px;
+            td {
+                text-align: center;
+                font-size: 20px;
             }
 
-            .flag {
-                height: 50px;
+            .balance-flag {
                 width: 50px;
-                border-radius: 25px;
+
+                .flag {
+                    height: 40px;
+                    width: 40px;
+                    border-radius: 20px;
+                }
             }
+
+            .balance-currency {
+                width: 150px;
+            }
+
+            .balance-amount {
+                width: 200px;
+            }
+            
+            .balance-send {
+                width: 100px;
+
+                button {
+                    width: 100px;
+                    height: 36px;
+                    color: rgb(255,255,255);
+                    background: rgb(46,208,110);
+                    border-color: rgb(46,208,110);
+                    border-radius: 5px;
+                    font-size: 15px;
+                }
+
+                button:hover {
+                    background: rgb(61, 173, 74);
+                    border-color: rgb(61, 173, 74);
+                }
+            }
+        }
+
+        tbody > tr:hover {
+            background: rgb(255,255,255);
         }
     }
 }
