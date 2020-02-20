@@ -2,6 +2,15 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLongArrowAltRight, faLongArrowAltLeft, faExchangeAlt } from '@fortawesome/free-solid-svg-icons'
 
+const toggleDetails = (e) => {
+    e.stopPropagation();
+    
+    e.currentTarget
+        .querySelector('.activity-extra')
+        .classList
+        .toggle('show-details')
+}
+
 const ActivitiesIndexItem = (props) => {
     let { t, currentUser, users } = props;
     let date = new Date(t.created_at);
@@ -12,27 +21,39 @@ const ActivitiesIndexItem = (props) => {
     if (currentUser.id === t.sender_id && currentUser.id === t.receiver_id) {
 
         return(
-            <li className='activity-index-item'>
-                <div className='item-detail-container'>
-                    <FontAwesomeIcon 
-                        className='activity-icon'
-                        icon={faExchangeAlt} 
-                    />
-                    <div className='item-details'>
-                        <div className='item-recipient'>
-                            Currency Conversion from <span>{t.from_currency} to {t.to_currency}</span>
+            <li className='activity-index-item' onClick={toggleDetails}>
+                <div className='activity-index-basic'>
+                    <div className='item-detail-container'>
+                        <FontAwesomeIcon 
+                            className='activity-icon'
+                            icon={faExchangeAlt} 
+                        />
+                        <div className='item-details'>
+                            <div className='item-recipient'>
+                                Currency Conversion from <span>{t.from_currency} to {t.to_currency}</span>
+                            </div>
+                            <div className='item-date'>
+                                Completed, {date}
+                            </div>
                         </div>
-                        <div className='item-date'>
-                            Completed, {date}
+                    </div>
+                    <div className='item-amounts'>
+                        <div className='top'>
+                            {t.received_amount.toFixed(2)} {t.to_currency}
+                        </div>
+                        <div className='bottom'>
+                            {t.sent_amount.toFixed(2)} {t.from_currency}
                         </div>
                     </div>
                 </div>
-                <div className='item-amounts'>
-                    <div className='top'>
-                        {t.received_amount.toFixed(2)} {t.to_currency}
+                <div className="activity-extra">
+                    <div className="activity-name">
+                        <h3>Name:</h3>
+                        <div>{t.name}</div>
                     </div>
-                    <div className='bottom'>
-                        {t.sent_amount.toFixed(2)} {t.from_currency}
+                    <div className="activity-desc">
+                        <h3>Description:</h3>
+                        <div>{t.description}</div>
                     </div>
                 </div>
             </li>
@@ -41,27 +62,39 @@ const ActivitiesIndexItem = (props) => {
         let receiver = `${users[t.receiver_id].name}`;
 
         return (
-            <li className='activity-index-item'>
-                <div className='item-detail-container'>
-                    <FontAwesomeIcon
-                        className='activity-icon'
-                        icon={faLongArrowAltRight}
-                    />
-                    <div className='item-details'>
-                        <div className='item-recipient'>
-                            Transfer to <span>{receiver}</span>
+            <li className='activity-index-item' onClick={toggleDetails}>
+                <div className='activity-index-basic'>
+                    <div className='item-detail-container'>
+                        <FontAwesomeIcon
+                            className='activity-icon'
+                            icon={faLongArrowAltRight}
+                        />
+                        <div className='item-details'>
+                            <div className='item-recipient'>
+                                Transfer to <span>{receiver}</span>
+                            </div>
+                            <div className='item-date'>
+                                Completed, {date}
+                            </div>
                         </div>
-                        <div className='item-date'>
-                            Completed, {date}
+                    </div>
+                    <div className='item-amounts'>
+                        <div className='top'>
+                            {t.sent_amount.toFixed(2)} {t.from_currency}
+                        </div>
+                        <div className='bottom'>
+                            {t.received_amount.toFixed(2)} {t.to_currency}
                         </div>
                     </div>
                 </div>
-                <div className='item-amounts'>
-                    <div className='top'>
-                        {t.sent_amount.toFixed(2)} {t.from_currency}
+                <div className="activity-extra">
+                    <div className="activity-name">
+                        <h3>Name:</h3>
+                        <div>{t.name}</div>
                     </div>
-                    <div className='bottom'>
-                        {t.received_amount.toFixed(2)} {t.to_currency}
+                    <div className="activity-desc">
+                        <h3>Description:</h3>
+                        <div>{t.description}</div>
                     </div>
                 </div>
             </li>
@@ -71,27 +104,39 @@ const ActivitiesIndexItem = (props) => {
         let sender = `${users[t.sender_id].name}`;
         
         return (
-            <li className='activity-index-item'>
-                <div className='item-detail-container'>
-                    <FontAwesomeIcon
-                        className='activity-icon'
-                        icon={faLongArrowAltLeft}
-                    />
-                    <div className='item-details'>
-                        <div className='item-recipient'>
-                            Deposit from <span>{sender}</span>
+            <li className='activity-index-item' onClick={toggleDetails}>
+                <div className='activity-index-basic'>
+                    <div className='item-detail-container'>
+                        <FontAwesomeIcon
+                            className='activity-icon'
+                            icon={faLongArrowAltLeft}
+                        />
+                        <div className='item-details'>
+                            <div className='item-recipient'>
+                                Deposit from <span>{sender}</span>
+                            </div>
+                            <div className='item-date'>
+                                Completed, {date}
+                            </div>
                         </div>
-                        <div className='item-date'>
-                            Completed, {date}
+                    </div>
+                    <div className='item-amounts'>
+                        <div className='top'>
+                            {t.received_amount.toFixed(2)} {t.to_currency}
+                        </div>
+                        <div className='bottom'>
+                            {t.sent_amount.toFixed(2)} {t.from_currency}
                         </div>
                     </div>
                 </div>
-                <div className='item-amounts'>
-                    <div className='top'>
-                        {t.received_amount.toFixed(2)} {t.to_currency}
+                <div className="activity-extra">
+                    <div className="activity-name">
+                        <h3>Name:</h3>
+                        <div>{t.name}</div>
                     </div>
-                    <div className='bottom'>
-                        {t.sent_amount.toFixed(2)} {t.from_currency}
+                    <div className="activity-desc">
+                        <h3>Description:</h3>
+                        <div>{t.description}</div>
                     </div>
                 </div>
             </li>

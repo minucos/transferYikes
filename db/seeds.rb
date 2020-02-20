@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 require 'date'
+require 'faker'
 
 ActiveRecord::Base.transaction do
     Transaction.destroy_all
@@ -80,7 +81,8 @@ ActiveRecord::Base.transaction do
         end
 
         Transaction.create!({
-            name: "Transfer", 
+            name: Faker::TvShows::Simpsons.character,
+            description: Faker::TvShows::Simpsons.quote,
             sent_amount: amount, 
             from_currency: "USD", 
             to_currency: currency, 

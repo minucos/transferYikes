@@ -19,7 +19,8 @@ const mapSTP = state => {
         to,
         rate,
         receiver: receiver ? receiver : '',
-        currency: currency ? currency : 'USD'
+        currency: currency ? currency : 'USD',
+        errors: state.errors.transaction
     })
 };
 

@@ -7,7 +7,7 @@ class Api::TransactionsController < ApplicationController
         if @transaction.save
             render :show
         else
-            render json: @transaction.errors.full_messages
+            render json: @transaction.errors.full_messages, status: 422
         end
     end
 

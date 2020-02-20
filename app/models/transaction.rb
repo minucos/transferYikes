@@ -21,7 +21,7 @@ class Transaction < ApplicationRecord
     
     validates :name, :sent_amount, :received_amount, :from_currency, :to_currency, :sender_id, :receiver_id, presence: true 
     validates :from_currency, :to_currency, inclusion: { in: CURRENCIES }
-    validate :sufficient_funds
+    validate :sufficient_funds, :valid_amount
 
     after_initialize :calculate_received_amount
 
@@ -36,12 +36,16 @@ class Transaction < ApplicationRecord
         errors.add(:Insufficient, "funds for this transaction") unless currency_balance >= sent_amount
     end
 
+    def valid_amount
+        errors.add(:amount, "must be more than zero") unless sent_amount > 0
+    end
+
     def currency_balance
         User.find(sender_id).currency_balance(from_currency)
     end
 
     def calculate_received_amount
-        self.received_amount ||= sent_amount * exchange_rate
+        self.received_amount ||= (sent_amount * exchange_rate).round(2)
     end
 
     def fund_deposit(id)

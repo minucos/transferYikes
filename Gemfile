@@ -30,6 +30,7 @@ gem "nokogiri", ">= 1.10.4"
 # gem 'mini_magick', '~> 4.8'
 gem "rails_12factor"
 gem 'kaminari'
+gem 'faker'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

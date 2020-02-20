@@ -21,69 +21,107 @@
             .update-pages:hover {
                 cursor: pointer;
             }
+
+            .hide {
+                color: rgb(242,245,247);
+            }
         }
     }
 }
 
 .activity-index-item {
-    display: flex;
-    justify-content: space-between;
     padding: 0px 30px;
     border-top: 1px solid rgb(226,230,232);
-    height: 100px;
     color: rgb(46,67,105);
+    
+    
+    .activity-index-basic {
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid rgb(226,230,232);
+        height: 100px;
+        color: rgb(46,67,105);
 
-    .item-detail-container {
-        display: flex;  
-        justify-content: space-evenly;
-        padding: 10px 20px;
+        .item-detail-container {
+            display: flex;  
+            justify-content: space-evenly;
+            padding: 10px 20px;
 
-        .activity-icon {
-            font-size: 50px;
-            color:  rgb(46,67,105);
-            align-self: center;
+            .activity-icon {
+                font-size: 50px;
+                color:  rgb(46,67,105);
+                align-self: center;
+            }
+
+            .item-details {
+                padding-left: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+
+                .item-recipient {
+                    font-size: 16px;
+
+                    span {
+                        font-weight: 600;
+                    }
+                }
+
+                .item-date {
+                    font-size: 14px;
+                }
+            }
         }
 
-        .item-details {
-            padding-left: 20px;
+        .item-amounts {
+            padding: 10px 50px;
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
+        }
 
-            .item-recipient {
-                font-size: 16px;
+        .top, .bottom {
+            text-align: right;
+        }
 
-                span {
-                    font-weight: 600;
-                }
-            }
+        .top {
+            font-size: 20px;
+            font-weight: 400;
+        }
 
-            .item-date {
-                font-size: 14px;
-            }
+        .bottom {
+            font-size: 15px;
+        }
+
+    }
+
+    .activity-extra {
+        display: flex;
+        padding-left: 85px;
+        max-height: 0px;
+        transition-property: all;
+        transition-duration: 0.5s;
+        overflow: hidden;
+
+        .activity-name {
+            width: 30%;
+        }
+        
+        .activity-desc {
+            padding-left: 30px;
+            width: 50%;
+        }
+        
+        h3 {
+            font-weight: 600;
         }
     }
 
-    .item-amounts {
-        padding: 10px 50px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
+    .show-details {
+        max-height: 250px;
+        padding-bottom: 20px;
     }
-
-    .top, .bottom {
-        text-align: right;
-    }
-
-    .top {
-        font-size: 20px;
-        font-weight: 400;
-    }
-
-    .bottom {
-        font-size: 15px;
-    }
-
 }
 
 .activity-index-item:hover {

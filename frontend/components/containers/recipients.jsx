@@ -7,16 +7,17 @@ class Recipients extends React.Component {
     }
 
     render() {
-        let { selectUser } = this.props;
+        let { selectUser, transactions } = this.props;
 
         let recipients = this.props.recipients.map( recipient => {
+            let transaction = transactions[recipient.id];
             return(
                 <li key={recipient.id}>
                     <div className="name">
                         {recipient.name}
                     </div>
                     <div className="transaction">
-                        Most recent transaction goes here
+                        {transaction ? transaction.name : "No recent transaction"}
                     </div>
                     <Link to='/activity/send'>
                         <button onClick={() => selectUser(recipient.id)}>

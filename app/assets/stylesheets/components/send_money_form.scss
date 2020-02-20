@@ -48,6 +48,18 @@
             border: 1px solid rgb(0,185,255);
             outline: none;
         }
+
+        .error {
+            border: solid 2px rgb(250,0,0);
+        }
+        
+        .error::placeholder {
+            color: rgb(250,0,0);
+        }
+    }
+
+    .error {
+        border: solid 2px rgb(250,0,0);
     }
 
     .submit-button {
@@ -63,5 +75,6 @@
     .submit-button:hover {
         background: rgb(61, 173, 74);
         border-color: rgb(61, 173, 74);
+        cursor: pointer;
     }
 }

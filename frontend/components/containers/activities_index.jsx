@@ -52,24 +52,24 @@ class ActivitiesIndex extends React.Component {
         let lastPage = Math.floor(totalTrans / 15) + 1
         let nextIcon = (
                 <div
-                    onClick={() => this.updatePage(page + 1)}
-                    className='update-pages'>
+                    onClick={ page === lastPage ? null : () => this.updatePage(page + 1)}
+                    className={ page === lastPage ? 'hide' : 'update-pages'}>
                     <FontAwesomeIcon icon={faChevronCircleRight} />
                 </div>
         );
         let prevIcon = (
             <div
-                onClick={() => this.updatePage(page - 1)}
-                className='update-pages'>
+                onClick={ page > 1 ? () => this.updatePage(page - 1) : null}
+                className={ page > 1 ? 'update-pages' : 'hide'}>
                 <FontAwesomeIcon icon={faChevronCircleLeft} />
             </div>
         )
 
         return(
             <div className='activity-pages'>
-                { page > 1 ? prevIcon : null}
+                {prevIcon}
                 {this.pageNumbers(page, totalTrans)}
-                {page === lastPage ? null : nextIcon}
+                {nextIcon}
             </div>
         )
     }

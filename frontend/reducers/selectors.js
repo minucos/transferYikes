@@ -111,3 +111,24 @@ export const calculateBalances = (state) => {
 
     return balances;
 }
+
+export const recentTransactions = (users,transactions) => {
+    let result = {};
+
+    Object.keys(users).forEach(user => {
+        result[user] = lastTransaction(parseInt(user),transactions);
+    })
+
+    return result;
+}
+
+const lastTransaction = (user, transactions) => {
+    for (let i = 0; i < transactions.length; i++) {
+        let t = transactions[i];
+        if (user === t.receiver_id || user === t.sender_id) {
+            return t;
+        }
+    }
+
+    return null;
+}

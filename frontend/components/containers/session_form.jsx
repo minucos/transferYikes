@@ -26,7 +26,8 @@ class SessionForm extends React.Component {
         }
     };
 
-    handleSubmit() {
+    handleSubmit(e) {
+        e !== undefined ? e.preventDefault() : null;
         this.props.processForm(this.state);
     };
 
@@ -50,6 +51,7 @@ class SessionForm extends React.Component {
     }
 
     render() {
+        let { errors, clearErrors } = this.props;
         const demoLink = () => (
             <div className="demo-link">
                 or login with our <a className="session-link" onClick={this.loginDemo}>Demo User</a>
@@ -90,28 +92,37 @@ class SessionForm extends React.Component {
                         {heading}
                     </h2>
                     <div className="session-text">
-                        {message} <Link className="session-link" to={linkUrl}>{linkText}</Link>
+                        {message} 
+                        <Link 
+                            className="session-link" to={linkUrl}
+                            onClick={clearErrors}
+                        >
+                            {linkText}
+                        </Link>
                     </div>
                     <form className="session-form" onSubmit={this.handleSubmit}>
                         <input
+                            className={ errors['email'] ? 'error' : null}
                             type="text"
                             value={this.state.email}
-                            placeholder="Your email address"
+                            placeholder={ errors['email'] ? errors['email'] :"Your email address"}
                             onChange={this.update("email")}
                         />
                         { this.props.formType === 'signup' ?
                             <input
+                                className={errors['name'] ? 'error' : null}
                                 type="text"
                                 value={this.state.name}
-                                placeholder="Your full name"
+                                placeholder={ errors['name'] ? errors['name'] : "Your full name"}
                                 onChange={this.update("name")}
                             /> :
                             null
                         }
                         <input
+                            className={errors['password'] ? 'error' : null}
                             type="password"
                             value={this.state.password}
-                            placeholder="Your password"
+                            placeholder={ errors['password'] ? errors['password'] : "Your password"}
                             onChange={this.update("password")}
                         />
                         <input className="btn-submit" type="submit" value={buttonText} />

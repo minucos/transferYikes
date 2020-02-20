@@ -108,7 +108,7 @@ class SendMoneyForm extends React.Component {
     }
     
     render() {
-        const { currentUserId, users, rate } = this.props;
+        const { currentUserId, users, rate, errors } = this.props;
         const { name, 
             description, 
             sent_amount, 
@@ -129,15 +129,29 @@ class SendMoneyForm extends React.Component {
                 <form className='send-money-form' onSubmit={(e) => this.handleSubmit(e)}>
                     <div className='input-box'>
                         <label>Name:</label>
-                        <input type="text" value={name} onChange={this.handleInput('name')}/>
+                        <input 
+                            className={ errors['name'] ? 'error' : null} 
+                            type="text" 
+                            value={name} 
+                            onChange={this.handleInput('name')}
+                        />
                     </div>
                     <div className='input-box'>
                         <label>Description:</label>
-                        <input type="text" value={description} onChange={this.handleInput('description')}/>
+                        <input
+                            type="text" 
+                            value={description} 
+                            onChange={this.handleInput('description')}
+                        />
                     </div>
                     <div className='input-box'>
                         <label>Send Amount:</label>
-                        <input type="float" value={sent_amount} onChange={this.handleInput('sent_amount')}/>
+                        <input 
+                            className={ errors['amount'] ? 'error' : null} 
+                            type="float" 
+                            value={sent_amount} 
+                            onChange={this.handleInput('sent_amount')}
+                        />
                     </div>
                     <div className='input-box'>
                         <label>From:</label>
@@ -166,7 +180,10 @@ class SendMoneyForm extends React.Component {
                         <label>{rate}</label>
                     </div>
                     <div className="input-box">
-                        <label>Receiver:</label>
+                        <label 
+                            className={errors['receiver_id'] ? 'error' : null}
+                        >Receiver:
+                        </label>
                         <label>{receiverName}</label>
                     </div>
                     <input className="submit-button" type="submit" value="Send Money!"/>

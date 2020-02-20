@@ -99,6 +99,14 @@
             color: rgb(46,67,105);
         }
 
+        .error {
+            border: solid 2px rgb(250,0,0);
+        }
+        
+        .error::placeholder {
+            color: rgb(250,0,0);
+        }
+
         input:focus {
             outline: none;
             box-shadow: 0;
@@ -107,7 +115,9 @@
 
         .btn-submit {
             background: rgb(67,185,251);
+            border-color: rgb(67,185,251);
             color: rgb(255,255,255);
+            cursor: pointer;
         }
     }
 }
