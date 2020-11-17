@@ -5,10 +5,11 @@ import {
 } from "../actions/session_actions";
 
 const errorMessages = {
-    "Email can't be blank": 'email',
-    "Name can't be blank": 'name',
-    "Password is too short (minimum is 6 characters)": 'password'
-}
+    ["Email can't be blank"]: 'email',
+    ['Email has already been taken']: 'email',
+    ["Name can't be blank"]: 'name',
+    ["Password is too short (minimum is 6 characters)"]: 'password'
+};
 
 const SessionsErrorsReducer = (oldState = [], action) => {
     Object.freeze(oldState);

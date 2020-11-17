@@ -8,7 +8,7 @@ class SessionForm extends React.Component {
         this.state = {
             email: "",
             name: "",
-            password: "",
+            password: ""
         };
 
         this.images = [window.alamedaCove, window.yosemiteRiver, window.sunset, window.goldenFog, window.transamerica];
@@ -98,11 +98,11 @@ class SessionForm extends React.Component {
                             onClick={clearErrors}
                         >
                             {linkText}
-                        </Link>
+                        </Link> t
                     </div>
                     <form className="session-form" onSubmit={this.handleSubmit}>
                         <input
-                            className={ errors['email'] ? 'error' : null}
+                            className={`input-class ${errors['email'] ? 'error' : null}`}
                             type="text"
                             value={this.state.email}
                             placeholder={ errors['email'] ? errors['email'] :"Your email address"}

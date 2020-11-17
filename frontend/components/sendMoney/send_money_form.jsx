@@ -8,9 +8,9 @@ class SendMoneyForm extends React.Component {
         this.state = {
             name: '',
             description: '',
-            sent_amount: 0,
-            from_currency: this.props.currency,
-            to_currency: this.props.currency
+            sentAmount: 0,
+            fromCurrency: this.props.currency,
+            toCurrency: this.props.currency
         };
 
         this.symbols = {
@@ -43,17 +43,17 @@ class SendMoneyForm extends React.Component {
 
         if (receiver) {
             this.setState({
-                ['receiver_id']: receiver,
+                ['receiverId']: receiver,
                 receiverName: users[receiver].name
             })
         }
     }
 
     componentDidUpdate(prevProps,prevState) {
-        let { to_currency, from_currency} = this.state;
-        let { prev_to_currency, prev_from_currency} = prevState;
-        if (prev_from_currency !== from_currency || prev_to_currency !== to_currency) {
-            this.props.fetchRate(from_currency,to_currency);
+        let { toCurrency, fromCurrency} = this.state;
+        let { toCurrency: prevToCurrency, fromCurrency: prevFromCurrency} = prevState;
+        if (prevFromCurrency !== fromCurrency || prevToCurrency !== toCurrency) {
+            this.props.fetchRate(fromCurrency,toCurrency);
         }
     }
 
@@ -102,7 +102,7 @@ class SendMoneyForm extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         let transaction = this.state;
-        transaction['exchange_rate'] = this.props.rate;
+        transaction['exchangeRate'] = this.props.rate;
         this.props.createTransaction(transaction)
             .then(() => this.props.history.push('/activity'));
     }
@@ -111,11 +111,11 @@ class SendMoneyForm extends React.Component {
         const { currentUserId, users, rate, errors } = this.props;
         const { name, 
             description, 
-            sent_amount, 
-            receiver_id, 
+            sentAmount, 
+            receiverId, 
             receiverName, 
-            to_currency, 
-            from_currency 
+            toCurrency, 
+            fromCurrency 
         } = this.state;
          
         return(
@@ -149,8 +149,8 @@ class SendMoneyForm extends React.Component {
                         <input 
                             className={ errors['amount'] ? 'error' : null} 
                             type="float" 
-                            value={sent_amount} 
-                            onChange={this.handleInput('sent_amount')}
+                            value={sentAmount} 
+                            onChange={this.handleInput('sentAmount')}
                         />
                     </div>
                     <div className='input-box'>
@@ -158,10 +158,10 @@ class SendMoneyForm extends React.Component {
                         <select
                             className="currency-dropdown"
                             id="from-dropdown"
-                            onChange={this.handleInput("from_currency")}
-                            defaultValue={from_currency}
+                            onChange={this.handleInput("fromCurrency")}
+                            defaultValue={fromCurrency}
                         >
-                            {this.buildDropdown('from_currency')}
+                            {this.buildDropdown('fromCurrency')}
                         </select>
                     </div>
                     <div className='input-box'>
@@ -169,10 +169,10 @@ class SendMoneyForm extends React.Component {
                         <select
                             className="currency-dropdown"
                             id="to-dropdown"
-                            onChange={this.handleInput("to_currency")}
-                            defaultValue={to_currency}
+                            onChange={this.handleInput("toCurrency")}
+                            defaultValue={toCurrency}
                         >
-                            {this.buildDropdown('to_currency')}
+                            {this.buildDropdown('toCurrency')}
                         </select>
                     </div>
                     <div className='input-box'>
@@ -181,7 +181,7 @@ class SendMoneyForm extends React.Component {
                     </div>
                     <div className="input-box">
                         <label 
-                            className={errors['receiver_id'] ? 'error' : null}
+                            className={errors['receiverId'] ? 'error' : null}
                         >Receiver:
                         </label>
                         <label>{receiverName}</label>

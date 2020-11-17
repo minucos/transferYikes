@@ -24,10 +24,10 @@ class BalancesBar extends React.Component {
 
         let transaction = {
             name: 'Funds Deposit',
-            sent_amount: amount,
-            from_currency: currency,
-            to_currency: currency,
-            exchange_rate: 1,
+            sentAmount: amount,
+            fromCurrency: currency,
+            toCurrency: currency,
+            exchangeRate: 1,
         }
 
         this.props.depositTransaction(transaction)

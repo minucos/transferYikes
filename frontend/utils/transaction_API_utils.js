@@ -16,7 +16,8 @@ export const createTransaction = (transaction) => (
     $.ajax({
         method: 'POST',
         url: 'api/transactions',
-        data: { transaction }
+        data: { transaction },
+        contentType: 'application/json'
     })
 )
  
@@ -24,7 +25,8 @@ export const depositTransaction = (transaction) => (
     $.ajax({
         method: 'POST',
         url: 'api/transactions/deposit',
-        data: { transaction }
+        data: { transaction },
+        contentType: 'application/json'
     })
 )
  
