@@ -1,6 +1,7 @@
 class Api::TransactionsController < ApplicationController
 
     def create
+        debugger
         @transaction = Transaction.new(trans_params)
         @transaction.sender_id = current_user.id
 
