@@ -42,7 +42,7 @@ ActiveRecord::Base.transaction do
     # transactions
     # initial deposits
     User.where.not(email: 'vault@transferyikes.com').each do |user|
-        Transaction.create!(name: "Deposit", sent_amount: 100000, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: user.id, exchange_rate: 1, created_at: '01/01/2019')
+        Transaction.create!(name: "Deposit", sent_amount: 100000, from_currency: "USD", to_currency: "USD", sender_id: bank.id, receiver_id: user.id, exchange_rate: 1, created_at: (DateTime.now - 181).to_s)
     end
 
     all_user_ids = User.where.not(email: 'vault@transferyikes.com').pluck(:id)
@@ -72,7 +72,7 @@ ActiveRecord::Base.transaction do
         amount = amounts.sample
         currency = currencies.sample
         rate = rates[currency.to_sym] + random_variance
-        date = DateTime.now - dates.sample
+        date = (DateTime.now - dates.sample).to_s
         sender_id = all_user_ids.sample
         receiver_id = all_user_ids.sample
 
@@ -89,7 +89,7 @@ ActiveRecord::Base.transaction do
             sender_id: sender_id, 
             receiver_id: receiver_id, 
             exchange_rate: rate, 
-            created_at: date.to_s
+            created_at: date
         })
     end
 end
