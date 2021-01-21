@@ -26,10 +26,13 @@
         width: 60%;
         height: 50px;
         margin-top: 20px;
+        border: 1px solid #28b862;
         border-radius: 5px;
-        border-color: rgb(59,89,152);
+        background: #28b862;
+        border-color:#28b862;
         font-size: 16px;
-        color: rgb(59,89,152);
+        color: #ffffff;
+        cursor: pointer;
     }
 
     .demo-link {

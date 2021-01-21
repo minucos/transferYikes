@@ -98,7 +98,7 @@ class SessionForm extends React.Component {
                             onClick={clearErrors}
                         >
                             {linkText}
-                        </Link> t
+                        </Link>
                     </div>
                     <form className="session-form" onSubmit={this.handleSubmit}>
                         <input
